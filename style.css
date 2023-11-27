@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'Ubuntu Title';
+  src: url('assets/UI/Ubuntu-Title.ttf') format('truetype');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+
+  background-color: #000;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  overflow: hidden;
+}
