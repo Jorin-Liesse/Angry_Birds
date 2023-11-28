@@ -219,6 +219,7 @@ export class ChoiceBox {
     ) {
       this.status = "closed";
     }
+    
 
     if (this.status === "open") {
       for (let i = 1; i < this.options.length; i++) {

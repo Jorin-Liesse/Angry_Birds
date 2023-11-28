@@ -76,7 +76,7 @@ class MainMenu {
 
     this.sprites.title = new Sprite(
       "assets/UI/AngryBirds.png",
-      { x: this.canvas.width * (57 / 180), y: this.canvas.height * (1 / 40) },
+      { x: this.canvas.width * (117 / 360), y: this.canvas.height * (1 / 40) },
       {
         x: this.canvas.width * (313 / 900),
         y: this.canvas.height * (109 / 480),
@@ -586,7 +586,7 @@ class OptionsMenu {
           x: this.canvas.width * (677/900),
           y: this.canvas.height * (307/480),
         },
-        otherOptions: [
+        otherOptions: [ 
           {
             x: this.canvas.width * (58/75),
             y: this.canvas.height * (43/60),
