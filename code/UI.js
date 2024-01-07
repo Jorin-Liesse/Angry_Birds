@@ -219,7 +219,6 @@ export class ChoiceBox {
     ) {
       this.status = "closed";
     }
-    
 
     if (this.status === "open") {
       for (let i = 1; i < this.options.length; i++) {
@@ -273,75 +272,79 @@ export class ChoiceBox {
 }
 
 export class Slider {
-  constructor(pathBar, pathPin, position, size) {
+  constructor(pathBar, pathPin, position, size, startPercentage) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
 
-    this.sliderSpriteBar = new Sprite(pathBar, position, size);
-    this.sliderSpritePin = new Sprite(pathPin, { x: 0, y: 0 }, size);
-
-    this.sliderSpritePin.position = {
-      x: position.x,
-      y: position.y,
-    };
-
-    this.sliderSpritePin.size = {
-      x:
-        this.sliderSpritePin.image.width *
-        (this.sliderSpriteBar.size.y / this.sliderSpritePin.image.height),
-      y: size.y,
-    };
-
     this.position = position;
     this.size = size;
-
     this.status = "passive";
-
+    this.startPercentage = startPercentage;
     this.previousMouse = false;
+    this.isLoaded = false;
+    this.setSize = false;
+
+    this.sliderSpriteBar = new Sprite(pathBar, position, size);
+    this.sliderSpritePin = new Sprite(pathPin, { x: 0, y: 0 }, size);
   }
 
   update(dt, inputs) {
-    if (
-      inputs.mousePosition.x > this.sliderSpritePin.position.x &&
-      inputs.mousePosition.x <
-        this.sliderSpritePin.position.x + this.sliderSpritePin.size.x &&
-      inputs.mousePosition.y > this.sliderSpritePin.position.y &&
-      inputs.mousePosition.y <
-        this.sliderSpritePin.position.y + this.sliderSpritePin.size.y &&
-      inputs.mouseButtonsPressed[0]
-    ) {
-      this.status = "active";
-    } else if (this.previousMouse && !inputs.mouseButtonsPressed[0]) {
-      this.status = "passive";
+    if (this.sliderSpriteBar && this.sliderSpritePin && !this.setSize  ) {
+      this.sliderSpritePin.size = {
+        x:
+          this.sliderSpritePin.image.width *
+          (this.sliderSpriteBar.size.y / this.sliderSpritePin.image.height),
+        y: this.size.y,
+      };
+
+      this.sliderSpritePin.position = {
+        x: this.position.x + (this.size.x - this.sliderSpritePin.size.x) * this.startPercentage,
+        y: this.position.y,
+      };
+
+      this.setSize = true;
+      this.isLoaded = true;
     }
 
-    if (this.status === "active") {
-      this.sliderSpritePin.position.x =
-        inputs.mousePosition.x - this.sliderSpritePin.size.x / 2;
-
-      if (this.sliderSpritePin.position.x < this.position.x) {
-        this.sliderSpritePin.position.x = this.position.x;
-      } else if (
-        this.sliderSpritePin.position.x >
-        this.position.x + this.size.x - this.sliderSpritePin.size.x
+    if (this.isLoaded) {
+      if (
+        inputs.mousePosition.x > this.sliderSpritePin.position.x &&
+        inputs.mousePosition.x <
+          this.sliderSpritePin.position.x + this.sliderSpritePin.size.x &&
+        inputs.mousePosition.y > this.sliderSpritePin.position.y &&
+        inputs.mousePosition.y <
+          this.sliderSpritePin.position.y + this.sliderSpritePin.size.y &&
+        inputs.mouseButtonsPressed[0]
       ) {
-        this.sliderSpritePin.position.x =
-          this.position.x + this.size.x - this.sliderSpritePin.size.x;
+        this.status = "active";
+      } else if (this.previousMouse && !inputs.mouseButtonsPressed[0]) {
+        this.status = "passive";
       }
+  
+      if (this.status === "active") {
+        this.sliderSpritePin.position.x =
+          inputs.mousePosition.x - this.sliderSpritePin.size.x / 2;
+  
+        if (this.sliderSpritePin.position.x < this.position.x) {
+          this.sliderSpritePin.position.x = this.position.x;
+        } else if (
+          this.sliderSpritePin.position.x >
+          this.position.x + this.size.x - this.sliderSpritePin.size.x
+        ) {
+          this.sliderSpritePin.position.x =
+            this.position.x + this.size.x - this.sliderSpritePin.size.x;
+        }
+      }
+  
+      this.previousMouse = inputs.mouseButtonsPressed[0];
     }
-
-    this.previousMouse = inputs.mouseButtonsPressed[0];
   }
 
   draw() {
-    this.sliderSpriteBar.draw();
-    this.sliderSpritePin.draw();
-  }
-
-  setPocentage(percentage) {
-    this.sliderSpritePin.position.x =
-      this.position.x +
-      (this.size.x - this.sliderSpritePin.size.x) * percentage;
+    if (this.isLoaded) {
+      this.sliderSpriteBar.draw();
+      this.sliderSpritePin.draw();
+    }
   }
 
   getPocentage() {

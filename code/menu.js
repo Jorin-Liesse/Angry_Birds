@@ -345,19 +345,17 @@ class OptionsMenu {
         x: this.canvas.width * (149 / 300),
         y: this.canvas.height * (127 / 480),
       },
-      { x: this.canvas.width * (16 / 45), y: this.canvas.height * (1 / 10) }
+      { x: this.canvas.width * (16 / 45), y: this.canvas.height * (1 / 10) },
+      0.25
     );
-
-    this.soundSprites.sliderMasterVolume.setPocentage(0.25);
 
     this.soundSprites.sliderMusicVolume = new Slider(
       "assets/UI/SliderBar.png",
       "assets/UI/SliderPin.png",
       { x: this.canvas.width * (112 / 225), y: this.canvas.height * (29 / 60) },
-      { x: this.canvas.width * (16 / 45), y: this.canvas.height * (1 / 10) }
+      { x: this.canvas.width * (16 / 45), y: this.canvas.height * (1 / 10) },
+      0.75
     );
-
-    this.soundSprites.sliderMusicVolume.setPocentage(0.75);
 
     this.soundSprites.sliderSoundEffectVolume = new Slider(
       "assets/UI/SliderBar.png",
@@ -366,10 +364,9 @@ class OptionsMenu {
         x: this.canvas.width * (449 / 900),
         y: this.canvas.height * (169 / 240),
       },
-      { x: this.canvas.width * (16 / 45), y: this.canvas.height * (1 / 10) }
+      { x: this.canvas.width * (16 / 45), y: this.canvas.height * (1 / 10) },
+      0.25
     );
-
-    this.soundSprites.sliderSoundEffectVolume.setPocentage(0.25);
 
     this.graphicsSprites.textWinwdowMode = new Text(
       "Window Mode",
