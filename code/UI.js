@@ -356,7 +356,7 @@ export class Slider {
 }
 
 export class Switch {
-  constructor(path, position, size) {
+  constructor(path, position, size, status) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
 
@@ -369,7 +369,7 @@ export class Switch {
     this.position = position;
     this.size = size;
 
-    this.status = "on";
+    this.status = status;
 
     this.previousMouse = false;
   }

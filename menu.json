@@ -1,0 +1,280 @@
+{
+  "MainMenu": {
+    "backSign": {
+      "type": "Sprite",
+      "path": "assets/UI/BackFrameSmall.png",
+      "position": { "x": 0.344, "y": 0.117 },
+      "size": { "x": 0.311, "y": 0.767 }
+    },
+    "titleBox": {
+      "type": "Sprite",
+      "path": "assets/UI/TitleBox.png",
+      "position": { "x": 0.325, "y": 0.025 },
+      "size": { "x": 0.348, "y": 0.227 }
+    },
+    "title": {
+      "type": "Sprite",
+      "path": "assets/UI/AngryBirds.png",
+      "position": { "x": 0.325, "y": 0.025 },
+      "size": { "x": 0.348, "y": 0.227 }
+    },
+    "buttonStart": {
+      "type": "Button",
+      "pathUp": "assets/UI/ButtonUp.png",
+      "pathDown": "assets/UI/ButtonDown.png",
+      "text": "Start",
+      "position": { "x": 0.389, "y": 0.233 },
+      "size": { "x": 0.222, "y": 0.15 }
+    },
+    "buttonOptions": {
+      "type": "Button",
+      "pathUp": "assets/UI/ButtonUp.png",
+      "pathDown": "assets/UI/ButtonDown.png",
+      "text": "Options",
+      "position": { "x": 0.389, "y": 0.425 },
+      "size": { "x": 0.222, "y": 0.15 }
+    },
+    "buttonQuit": {
+      "type": "Button",
+      "pathUp": "assets/UI/ButtonUp.png",
+      "pathDown": "assets/UI/ButtonDown.png",
+      "text": "Quit",
+      "position": { "x": 0.389, "y": 0.617 },
+      "size": { "x": 0.222, "y": 0.15 }
+    }
+  },
+  "OptionsMenu": {
+    "backSignSmall": {
+      "type": "Sprite",
+      "path": "assets/UI/BackFrameSmall.png",
+      "position": { "x": 0.062, "y": 0.117 },
+      "size": { "x": 0.311, "y": 0.767 }
+    },
+    "titleBox": {
+      "type": "Sprite",
+      "path": "assets/UI/TitleBox.png",
+      "position": { "x": 0.044, "y": 0.025 },
+      "size": { "x": 0.348, "y": 0.227 }
+    },
+    "title": {
+      "type": "Sprite",
+      "path": "assets/UI/Options.png",
+      "position": { "x": 0.044, "y": 0.025 },
+      "size": { "x": 0.348, "y": 0.227 }
+    },
+    "buttonGraphics": {
+      "type": "Button",
+      "pathUp": "assets/UI/ButtonUp.png",
+      "pathDown": "assets/UI/ButtonDown.png",
+      "text": "Graphics",
+      "position": { "x": 0.107, "y": 0.233 },
+      "size": { "x": 0.222, "y": 0.15 }
+    },
+    "buttonSound": {
+      "type": "Button",
+      "pathUp": "assets/UI/ButtonUp.png",
+      "pathDown": "assets/UI/ButtonDown.png",
+      "text": "Sound",
+      "position": { "x": 0.107, "y": 0.425 },
+      "size": { "x": 0.222, "y": 0.15 }
+    },
+    "buttonControlls": {
+      "type": "Button",
+      "pathUp": "assets/UI/ButtonUp.png",
+      "pathDown": "assets/UI/ButtonDown.png",
+      "text": "Controlls",
+      "position": { "x": 0.107, "y": 0.617 },
+      "size": { "x": 0.222, "y": 0.15 }
+    },
+    "backSignBig": {
+      "type": "Sprite",
+      "path": "assets/UI/BackFrameMedium.png",
+      "position": { "x": 0.422, "y": 0.117 },
+      "size": { "x": 0.515, "y": 0.767 }
+    },
+    "backButton": {
+      "type": "Button",
+      "pathUp": "assets/UI/CrossButtonUp.png",
+      "pathDown": "assets/UI/CrossButtonDown.png",
+      "text": "",
+      "position": { "x": 0.89, "y": 0.06 },
+      "size": { "x": 0.078, "y": 0.146 }
+    }
+  },
+  "GraphicsMenu": {
+    "textWinwdowMode": {
+      "type": "Text",
+      "font": "Ubuntu Title",
+      "text": "Window Mode",
+      "position": { "x": 0.483, "y": 0.161 },
+      "size": 0.039,
+      "color": "#c6ac9f"
+    },
+    "textFPS": {
+      "type": "Text",
+      "font": "Ubuntu Title",
+      "text": "FPS",
+      "position": { "x": 0.792, "y": 0.161 },
+      "size": 0.039,
+      "color": "#c6ac9f"
+    },
+    "textShowFPS": {
+      "type": "Text",
+      "font": "Ubuntu Title",
+      "text": "Show FPS",
+      "position": { "x": 0.475, "y": 0.534 },
+      "size": 0.039,
+      "color": "#c6ac9f"
+    },
+    "textAntiAliasing": {
+      "type": "Text",
+      "font": "Ubuntu Title",
+      "text": "Anti Aliasing",
+      "position": { "x": 0.455, "y": 0.711 },
+      "size": 0.039,
+      "color": "#c6ac9f"
+    },
+    "textResolution": {
+      "type": "Text",
+      "font": "Ubuntu Title",
+      "text": "Resolution",
+      "position": { "x": 0.697, "y": 0.534 },
+      "size": 0.039,
+      "color": "#c6ac9f"
+    },
+    "switchShowFPS": {
+      "type": "Switch",
+      "path": "assets/UI/Switch.png",
+      "position": { "x": 0.501, "y": 0.581 },
+      "size": { "x": 0.089, "y": 0.083 },
+      "value": "on"
+    },
+    "switchAntiAliasing": {
+      "type": "Switch",
+      "path": "assets/UI/Switch.png",
+      "position": { "x": 0.501, "y": 0.754 },
+      "size": { "x": 0.089, "y": 0.083 },
+      "value": "off"
+    },
+    "choiceBoxWindowMode": {
+      "type": "ChoiceBox",
+      "pathOpen": "assets/UI/ChoiceBoxWindowModeOpen.png",
+      "pathClosed": "assets/UI/ChoiceBoxWindowModeClosed.png",
+      "options": ["Windowed", "Fullscreen", "Borderless"],
+      "position": {
+        "backSignOpen": { "x": 0.477, "y": 0.208 },
+        "backSignClosed": { "x": 0.484, "y": 0.221 },
+        "firstOption": { "x": 0.567, "y": 0.265 },
+        "secondOptions": { "x": 0.586, "y": 0.34 },
+        "thirdOptions": { "x": 0.586, "y": 0.417 }
+      },
+
+      "size": {
+        "backSignOpen": { "x": 0.218, "y": 0.256 },
+        "backSignClosed": { "x": 0.199, "y": 0.079 },
+        "text": 0.032
+      },
+      "color": "#c6ac9f"
+    },
+    "choiceFPS": {
+      "type": "ChoiceBox",
+      "pathOpen": "assets/UI/ChoiceBoxFPSOpen.png",
+      "pathClosed": "assets/UI/ChoiceBoxFPSClosed.png",
+      "options": ["60", "30", "144"],
+      "position": {
+        "backSignOpen": { "x": 0.754, "y": 0.208 },
+        "backSignClosed": { "x": 0.762, "y": 0.221 },
+        "firstOption": { "x": 0.8, "y": 0.265 },
+        "secondOptions": { "x": 0.817, "y": 0.34 },
+        "thirdOptions": { "x": 0.817, "y": 0.417 }
+      },
+
+      "size": {
+        "backSignOpen": { "x": 0.124, "y": 0.256 },
+        "backSignClosed": { "x": 0.109, "y": 0.079 },
+        "text": 0.032
+      },
+      "color": "#c6ac9f"
+    },
+    "choiceResolution": {
+      "type": "ChoiceBox",
+      "pathOpen": "assets/UI/ChoiceBoxResolutionOpen.png",
+      "pathClosed": "assets/UI/ChoiceBoxResolutionClosed.png",
+      "options": ["1920X1080", "1280x720", "3840x2160"],
+      "position": {
+        "backSignOpen": { "x": 0.657, "y": 0.581 },
+        "backSignClosed": { "x": 0.667, "y": 0.594 },
+        "firstOption": { "x": 0.752, "y": 0.64 },
+        "secondOptions": { "x": 0.773, "y": 0.717 },
+        "thirdOptions": { "x": 0.773, "y": 0.794 }
+      },
+
+      "size": {
+        "backSignOpen": { "x": 0.233, "y": 0.256 },
+        "backSignClosed": { "x": 0.212, "y": 0.079 },
+        "text": 0.032
+      },
+      "color": "#c6ac9f"
+    }
+  },
+  "SoundMenu": {
+    "textMasterVolume": {
+      "type": "Text",
+      "font": "Ubuntu Title",
+      "text": "Master Volume",
+      "position": { "x": 0.567, "y": 0.217 },
+      "size": 0.039,
+      "color": "#c6ac9f"
+    },
+    "textMusicVolume": {
+      "type": "Text",
+      "font": "Ubuntu Title",
+      "text": "Music Volume",
+      "position": { "x": 0.579, "y": 0.438 },
+      "size": 0.039,
+      "color": "#c6ac9f"
+    },
+    "textSoundEffectVolume": {
+      "type": "Text",
+      "font": "Ubuntu Title",
+      "text": "Sound Effect Volume",
+      "position": { "x": 0.521, "y": 0.659 },
+      "size": 0.039,
+      "color": "#c6ac9f"
+    },
+    "sliderMasterVolume": {
+      "type": "Slider",
+      "pathBar": "assets/UI/SliderBar.png",
+      "pathPin": "assets/UI/SliderPin.png",
+      "position": { "x": 0.497, "y": 0.266 },
+      "size": { "x": 0.356, "y": 0.1 },
+      "value": 0.75
+    },
+    "sliderMusicVolume": {
+      "type": "Slider",
+      "pathBar": "assets/UI/SliderBar.png",
+      "pathPin": "assets/UI/SliderPin.png",
+      "position": { "x": 0.497, "y": 0.483 },
+      "size": { "x": 0.356, "y": 0.1 },
+      "value": 0.25
+    },
+    "sliderSoundEffectVolume": {
+      "type": "Slider",
+      "pathBar": "assets/UI/SliderBar.png",
+      "pathPin": "assets/UI/SliderPin.png",
+      "position": { "x": 0.497, "y": 0.704 },
+      "size": { "x": 0.356, "y": 0.1 },
+      "value": 0.75
+    }
+  },
+  "ControllsMenu": {
+    "controllsPC": {
+      "type": "Sprite",
+      "path": "assets/UI/ControllsPC.png",
+      "position": { "x": 0.451, "y": 0.206 },
+      "size": { "x": 0.439, "y": 0.6 }
+    }
+  },
+  "CreditsMenu": {},
+  "GameMenu": {}
+}
