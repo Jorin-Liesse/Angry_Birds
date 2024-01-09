@@ -67,6 +67,8 @@ export class Text {
     this.size = size;
     this.color = color;
 
+    this.isButton = false;
+
     this.ctx.font = `${this.size}px "Ubuntu Title"`;
     this.ctx.fillStyle = this.color;
 
@@ -75,9 +77,17 @@ export class Text {
     this.height = parseInt(this.ctx.font) / 2;
   }
 
+
   update(dt, inputs) {}
 
   draw() {
+    if (this.isButton) {
+      this.ctx.textAlign = "center";
+    }
+
+    else {
+      this.ctx.textAlign = "start";
+    }
     this.ctx.font = `${this.size}px "Ubuntu Title"`;
     this.ctx.fillStyle = this.color;
 
@@ -86,6 +96,10 @@ export class Text {
       this.position.x,
       this.position.y + this.height
     );
+  }
+
+  setIsButton() {
+    this.isButton = true;
   }
 }
 
@@ -100,17 +114,19 @@ export class Button {
     this.buttonTextUp = new Text(text, position, size.x / 4, "#c6ac9f");
     this.buttonTextDown = new Text(text, position, size.x / 4.5, "#c6ac9f");
 
+    this.buttonTextUp.setIsButton();
+    this.buttonTextDown.setIsButton();
+
     this.buttonTextUp.position = {
-      x: position.x + size.x / 2 - this.buttonTextUp.width / 2,
+      x: position.x + size.x / 2,
       y: position.y + size.y / 2 - this.buttonTextUp.height / 2,
     };
     this.buttonTextDown.position = {
-      x: position.x + size.x / 2 - this.buttonTextDown.width / 2,
+      x: position.x + size.x / 2,
       y:
         position.y +
         size.y / 2 +
-        this.canvas.height * 0.012 -
-        this.buttonTextDown.height / 2,
+        this.canvas.height * 0.010 - this.buttonTextUp.height / 2,
     };
 
     this.position = position;

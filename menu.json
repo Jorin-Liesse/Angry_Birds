@@ -22,7 +22,7 @@
       "type": "Button",
       "pathUp": "assets/UI/ButtonUp.png",
       "pathDown": "assets/UI/ButtonDown.png",
-      "text": "Start",
+      "text": "Play",
       "position": { "x": 0.389, "y": 0.233 },
       "size": { "x": 0.222, "y": 0.15 }
     },
