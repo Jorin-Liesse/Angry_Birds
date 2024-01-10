@@ -15,7 +15,7 @@ export class Player {
 
     this.sprite = new Sprite(
       "assets/Game/BirdRed.png",
-      {x: 0, y: 0},
+      this.position,
       {x: this.canvas.width * 0.078, y: this.canvas.height * 0.1315});
   }
 
