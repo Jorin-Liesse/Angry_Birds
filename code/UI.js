@@ -1,3 +1,55 @@
+export class Line {
+  constructor(startPosition, endPosition, width, color) {
+    this.canvas = document.getElementById("mainCanvas");
+    this.ctx = this.canvas.getContext("2d");
+
+    this.startPosition = startPosition;
+    this.endPosition = endPosition;
+    this.width = width;
+    this.color = color;
+  }
+
+  update(dt, inputs) {}
+
+  draw() {
+    this.ctx.save();
+    this.ctx.strokeStyle = this.color;
+    this.ctx.lineWidth = this.width;
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.startPosition.x, this.startPosition.y);
+    this.ctx.lineTo(this.endPosition.x, this.endPosition.y);
+    this.ctx.stroke();
+
+    this.ctx.restore();
+  }
+}
+
+export class Circle {
+  constructor(position, raduis, color) {
+    this.canvas = document.getElementById("mainCanvas");
+    this.ctx = this.canvas.getContext("2d");
+
+    this.position = position;
+    this.radius = raduis;
+    this.color = color;
+  }
+
+  update(dt, inputs) {}
+
+  draw() {
+    this.ctx.save();
+
+    this.ctx.strokeStyle = this.color;
+
+    this.ctx.beginPath();
+    this.ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
+    this.ctx.fill();
+
+    this.ctx.restore();
+  }
+}
+
 export class Sprite {
   constructor(path, position, size) {
     this.canvas = document.getElementById("mainCanvas");
@@ -12,6 +64,8 @@ export class Sprite {
     this.isFlippedVertical = false;
     this.isFlippedHorizontal = false;
 
+    this.angle = 0;
+
     this.isLoaded = false;
 
     this.image.onload = () => {
@@ -25,29 +79,24 @@ export class Sprite {
     if (this.isLoaded) {
       this.ctx.save();
 
-      if (this.isFlippedHorizontal || this.isFlippedVertical) {
-        this.ctx.translate(
-          this.position.x + this.size.x / 2,
-          this.position.y + this.size.y / 2
-        );
+      this.ctx.translate(
+        this.position.x + this.size.x / 2,
+        this.position.y + this.size.y / 2
+      );
 
-        if (this.isFlippedHorizontal) {
-          this.ctx.scale(-1, 1);
-        }
-        if (this.isFlippedVertical) {
-          this.ctx.scale(1, -1);
-        }
-
-        this.ctx.translate(
-          -(this.position.x + this.size.x / 2),
-          -(this.position.y + this.size.y / 2)
-        );
+      if (this.isFlippedHorizontal) {
+        this.ctx.scale(-1, 1);
       }
+      if (this.isFlippedVertical) {
+        this.ctx.scale(1, -1);
+      }
+
+      this.ctx.rotate(this.angle); // Apply rotation (in radians)
 
       this.ctx.drawImage(
         this.image,
-        this.position.x,
-        this.position.y,
+        -this.size.x / 2,
+        -this.size.y / 2,
         this.size.x,
         this.size.y
       );
@@ -77,15 +126,12 @@ export class Text {
     this.height = parseInt(this.ctx.font) / 2;
   }
 
-
   update(dt, inputs) {}
 
   draw() {
     if (this.isButton) {
       this.ctx.textAlign = "center";
-    }
-
-    else {
+    } else {
       this.ctx.textAlign = "start";
     }
     this.ctx.font = `${this.size}px "Ubuntu Title"`;
@@ -126,7 +172,8 @@ export class Button {
       y:
         position.y +
         size.y / 2 +
-        this.canvas.height * 0.010 - this.buttonTextUp.height / 2,
+        this.canvas.height * 0.01 -
+        this.buttonTextUp.height / 2,
     };
 
     this.position = position;
@@ -305,7 +352,7 @@ export class Slider {
   }
 
   update(dt, inputs) {
-    if (this.sliderSpriteBar && this.sliderSpritePin && !this.setSize  ) {
+    if (this.sliderSpriteBar && this.sliderSpritePin && !this.setSize) {
       this.sliderSpritePin.size = {
         x:
           this.sliderSpritePin.image.width *
@@ -314,7 +361,9 @@ export class Slider {
       };
 
       this.sliderSpritePin.position = {
-        x: this.position.x + (this.size.x - this.sliderSpritePin.size.x) * this.startPercentage,
+        x:
+          this.position.x +
+          (this.size.x - this.sliderSpritePin.size.x) * this.startPercentage,
         y: this.position.y,
       };
 
@@ -336,11 +385,11 @@ export class Slider {
       } else if (this.previousMouse && !inputs.mouseButtonsPressed[0]) {
         this.status = "passive";
       }
-  
+
       if (this.status === "active") {
         this.sliderSpritePin.position.x =
           inputs.mousePosition.x - this.sliderSpritePin.size.x / 2;
-  
+
         if (this.sliderSpritePin.position.x < this.position.x) {
           this.sliderSpritePin.position.x = this.position.x;
         } else if (
@@ -351,7 +400,7 @@ export class Slider {
             this.position.x + this.size.x - this.sliderSpritePin.size.x;
         }
       }
-  
+
       this.previousMouse = inputs.mouseButtonsPressed[0];
     }
   }

@@ -3,7 +3,6 @@ import { Sprite, Text, Button, Slider, Switch, ChoiceBox } from "./UI.js";
 export class Menu {
   constructor() {
     this.canvas = document.getElementById("mainCanvas");
-    this.ctx = this.canvas.getContext("2d");
 
     this.activeMenu = "MainMenu"; // MainMenu, OptionsMenu, CreditsMenu, GameMenu,
     this.activeOptionsMenu = "GraphicsMenu"; // GraphicsMenu, SoundMenu, ControllsMenu,
