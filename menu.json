@@ -1,49 +1,73 @@
 {
   "MainMenu": {
+    "background": {
+      "type": "Sprite",
+      "path": "assets/UI/Background.png",
+      "position": { "x": 0, "y": 0 },
+      "size": { "x": 1, "y": 1 }
+    },
+    "GrayFilter": {
+      "type": "Sprite",
+      "path": "assets/UI/GrayFilter.png",
+      "position": { "x": 0, "y": 0 },
+      "size": { "x": 1, "y": 1 }
+    },
     "backSign": {
       "type": "Sprite",
       "path": "assets/UI/BackFrameSmall.png",
-      "position": { "x": 0.344, "y": 0.117 },
-      "size": { "x": 0.311, "y": 0.767 }
+      "position": { "x": 0.349, "y": 0.148 },
+      "size": { "x": 0.302, "y": 0.704 }
     },
     "titleBox": {
       "type": "Sprite",
       "path": "assets/UI/TitleBox.png",
-      "position": { "x": 0.325, "y": 0.025 },
-      "size": { "x": 0.348, "y": 0.227 }
+      "position": { "x": 0.331, "y": 0.057 },
+      "size": { "x": 0.337, "y": 0.209 }
     },
     "title": {
       "type": "Sprite",
       "path": "assets/UI/AngryBirds.png",
-      "position": { "x": 0.325, "y": 0.025 },
-      "size": { "x": 0.348, "y": 0.227 }
+      "position": { "x": 0.331, "y": 0.057 },
+      "size": { "x": 0.337, "y": 0.209 }
     },
     "buttonStart": {
       "type": "Button",
       "pathUp": "assets/UI/ButtonUp.png",
       "pathDown": "assets/UI/ButtonDown.png",
       "text": "Play",
-      "position": { "x": 0.389, "y": 0.233 },
-      "size": { "x": 0.222, "y": 0.15 }
+      "position": { "x": 0.392, "y": 0.253 },
+      "size": { "x": 0.215, "y": 0.138 }
     },
     "buttonOptions": {
       "type": "Button",
       "pathUp": "assets/UI/ButtonUp.png",
       "pathDown": "assets/UI/ButtonDown.png",
       "text": "Options",
-      "position": { "x": 0.389, "y": 0.425 },
-      "size": { "x": 0.222, "y": 0.15 }
+      "position": { "x": 0.392, "y": 0.430 },
+      "size": { "x": 0.215, "y": 0.138 }
     },
     "buttonQuit": {
       "type": "Button",
       "pathUp": "assets/UI/ButtonUp.png",
       "pathDown": "assets/UI/ButtonDown.png",
       "text": "Quit",
-      "position": { "x": 0.389, "y": 0.617 },
-      "size": { "x": 0.222, "y": 0.15 }
+      "position": { "x": 0.392, "y": 0.606 },
+      "size": { "x": 0.215, "y": 0.138 }
     }
   },
   "OptionsMenu": {
+    "background": {
+      "type": "Sprite",
+      "path": "assets/UI/Background.png",
+      "position": { "x": 0, "y": 0 },
+      "size": { "x": 1, "y": 1 }
+    },
+    "GrayFilter": {
+      "type": "Sprite",
+      "path": "assets/UI/GrayFilter.png",
+      "position": { "x": 0, "y": 0 },
+      "size": { "x": 1, "y": 1 }
+    },
     "backSignSmall": {
       "type": "Sprite",
       "path": "assets/UI/BackFrameSmall.png",
@@ -94,8 +118,8 @@
     },
     "backButton": {
       "type": "Button",
-      "pathUp": "assets/UI/CrossButtonUp.png",
-      "pathDown": "assets/UI/CrossButtonDown.png",
+      "pathUp": "assets/UI/HomeButtonUp.png",
+      "pathDown": "assets/UI/HomeButtonDown.png",
       "text": "",
       "position": { "x": 0.89, "y": 0.06 },
       "size": { "x": 0.078, "y": 0.146 }
@@ -144,14 +168,16 @@
     },
     "switchShowFPS": {
       "type": "Switch",
-      "path": "assets/UI/Switch.png",
+      "pathOn": "assets/UI/SwitchOn.png",
+      "pathOff": "assets/UI/SwitchOff.png",
       "position": { "x": 0.501, "y": 0.581 },
       "size": { "x": 0.089, "y": 0.083 },
       "value": "on"
     },
     "switchAntiAliasing": {
       "type": "Switch",
-      "path": "assets/UI/Switch.png",
+      "pathOn": "assets/UI/SwitchOn.png",
+      "pathOff": "assets/UI/SwitchOff.png",
       "position": { "x": 0.501, "y": 0.754 },
       "size": { "x": 0.089, "y": 0.083 },
       "value": "off"
@@ -276,5 +302,22 @@
     }
   },
   "CreditsMenu": {},
-  "GameMenu": {}
+  "Game": {
+    "background": {
+      "type": "Sprite",
+      "path": "assets/UI/Background.png",
+      "position": { "x": 0, "y": 0 },
+      "size": { "x": 1, "y": 1 }
+    }
+  },
+  "InGameMenu": {
+    "GrayFilter": {
+      "type": "Sprite",
+      "path": "assets/UI/GrayFilter.png",
+      "position": { "x": 0, "y": 0 },
+      "size": { "x": 1, "y": 1 }
+    }
+  },
+  "Inventory": {},
+  "LevelSector": {}
 }

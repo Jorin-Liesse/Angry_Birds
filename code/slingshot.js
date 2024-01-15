@@ -38,11 +38,11 @@ export class Slingshot {
     this.elastic1 = new Line(
       {
         x: this.position.x + this.canvas.width * 0.0703,
-        y: this.position.y + this.canvas.height * 0.0166,
+        y: this.position.y + this.canvas.height * 0.0278,
       },
       { x: this.position.x, y: this.position.y },
       this.canvas.width * 0.02,
-      "#674326"
+      "#ab7b69"
     );
 
     this.elastic2 = new Line(
@@ -52,7 +52,7 @@ export class Slingshot {
       },
       { x: this.position.x, y: this.position.y },
       this.canvas.width * 0.02,
-      "#845631"
+      "#c48b76"
     );
 
     this.circles = [];

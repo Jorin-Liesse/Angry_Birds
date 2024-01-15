@@ -18,7 +18,6 @@ class Main {
 
     this.active = "menu"; // level, menu
 
-    this.background = new Background();
     this.level = new Level();
     this.menu = new Menu();
   }
@@ -32,8 +31,6 @@ class Main {
 
   #update() {
     this.#deltaTime();
-
-    this.background.update(this.dt, this.#inputs);
 
     switch (this.active) {
       case "menu":
@@ -56,8 +53,6 @@ class Main {
 
   #draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    this.background.draw();
 
     switch (this.active) {
       case "menu":

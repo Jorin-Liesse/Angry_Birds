@@ -104,6 +104,8 @@ export class Menu {
                   },
                   data[menu][element].color
                 );
+
+                // this.sprites[menu][element].alwaysOpen = true;
                 break;
               case "Slider":
                 this.sprites[menu][element] = new Slider(
@@ -122,7 +124,8 @@ export class Menu {
                 break;
               case "Switch":
                 this.sprites[menu][element] = new Switch(
-                  data[menu][element].path,
+                  data[menu][element].pathOn,
+                  data[menu][element].pathOff,
                   {
                     x: this.canvas.width * data[menu][element].position.x,
                     y: this.canvas.height * data[menu][element].position.y,

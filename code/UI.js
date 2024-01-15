@@ -2,7 +2,6 @@ export class Line {
   constructor(startPosition, endPosition, width, color) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
-
     this.startPosition = startPosition;
     this.endPosition = endPosition;
     this.width = width;
@@ -12,26 +11,28 @@ export class Line {
   update(dt, inputs) {}
 
   draw() {
-    this.ctx.save();
-    this.ctx.strokeStyle = this.color;
-    this.ctx.lineWidth = this.width;
+    const { ctx, color, width, startPosition, endPosition } = this;
 
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.startPosition.x, this.startPosition.y);
-    this.ctx.lineTo(this.endPosition.x, this.endPosition.y);
-    this.ctx.stroke();
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
 
-    this.ctx.restore();
+    ctx.beginPath();
+    ctx.moveTo(startPosition.x, startPosition.y);
+    ctx.lineTo(endPosition.x, endPosition.y);
+    ctx.stroke();
+
+    ctx.restore();
   }
 }
 
 export class Circle {
-  constructor(position, raduis, color) {
+  constructor(position, radius, color) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
 
     this.position = position;
-    this.radius = raduis;
+    this.radius = radius;
     this.color = color;
   }
 
@@ -41,7 +42,6 @@ export class Circle {
     this.ctx.save();
 
     this.ctx.strokeStyle = this.color;
-
     this.ctx.beginPath();
     this.ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
     this.ctx.fill();
@@ -76,33 +76,33 @@ export class Sprite {
   update(dt, inputs) {}
 
   draw() {
-    if (this.isLoaded) {
-      this.ctx.save();
+    if (!this.isLoaded) return;
 
-      this.ctx.translate(
-        this.position.x + this.size.x / 2,
-        this.position.y + this.size.y / 2
-      );
+    this.ctx.save();
 
-      if (this.isFlippedHorizontal) {
-        this.ctx.scale(-1, 1);
-      }
-      if (this.isFlippedVertical) {
-        this.ctx.scale(1, -1);
-      }
+    this.ctx.translate(
+      this.position.x + this.size.x / 2,
+      this.position.y + this.size.y / 2
+    );
 
-      this.ctx.rotate(this.angle); // Apply rotation (in radians)
-
-      this.ctx.drawImage(
-        this.image,
-        -this.size.x / 2,
-        -this.size.y / 2,
-        this.size.x,
-        this.size.y
-      );
-
-      this.ctx.restore();
+    if (this.isFlippedHorizontal) {
+      this.ctx.scale(-1, 1);
     }
+    if (this.isFlippedVertical) {
+      this.ctx.scale(1, -1);
+    }
+
+    this.ctx.rotate(this.angle);
+
+    this.ctx.drawImage(
+      this.image,
+      -this.size.x / 2,
+      -this.size.y / 2,
+      this.size.x,
+      this.size.y
+    );
+
+    this.ctx.restore();
   }
 }
 
@@ -118,24 +118,22 @@ export class Text {
 
     this.isButton = false;
 
+    this.setupText();
+  }
+
+  setupText() {
     this.ctx.font = `${this.size}px "Ubuntu Title"`;
     this.ctx.fillStyle = this.color;
 
     this.width = this.ctx.measureText(this.text).width;
-
     this.height = parseInt(this.ctx.font) / 2;
   }
 
   update(dt, inputs) {}
 
   draw() {
-    if (this.isButton) {
-      this.ctx.textAlign = "center";
-    } else {
-      this.ctx.textAlign = "start";
-    }
-    this.ctx.font = `${this.size}px "Ubuntu Title"`;
-    this.ctx.fillStyle = this.color;
+    this.ctx.textAlign = this.isButton ? "center" : "start";
+    this.setupText();
 
     this.ctx.fillText(
       this.text,
@@ -169,21 +167,17 @@ export class Button {
     };
     this.buttonTextDown.position = {
       x: position.x + size.x / 2,
-      y:
-        position.y +
-        size.y / 2 +
-        this.canvas.height * 0.01 -
-        this.buttonTextUp.height / 2,
+      y: position.y + size.y / 2 + this.canvas.height * 0.01 - this.buttonTextUp.height / 2,
     };
 
     this.position = position;
     this.size = size;
 
     this.status = "up";
-    this.previousMouse = "up";
 
     this.previousMouse = false;
     this.currentMouse = false;
+    this.previousstatus = "up"; // Added initialization for previousstatus
   }
 
   update(dt, inputs) {
@@ -213,11 +207,7 @@ export class Button {
   }
 
   clicked() {
-    if (
-      !this.currentMouse &&
-      this.previousMouse &&
-      this.previousstatus === "down"
-    ) {
+    if (!this.currentMouse && this.previousMouse && this.previousstatus === "down") {
       this.previousMouse = this.currentMouse;
       this.previousstatus = this.status;
       return true;
@@ -234,6 +224,9 @@ export class ChoiceBox {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
 
+    this.positions = positions;
+    this.sizes = sizes;
+
     this.choiceBoxSpriteOpen = new Sprite(
       pathOpen,
       positions.backSignOpen,
@@ -245,65 +238,62 @@ export class ChoiceBox {
       sizes.backSignClosed
     );
 
-    this.options = [];
-    for (let i = 0; i < options.length; i++) {
-      this.options[i] = new Text(options[i], { x: 0, y: 0 }, sizes.text, color);
-    }
+    this.options = options.map((option) => new Text(option, { x: 0, y: 0 }, sizes.text, color));
 
-    this.positions = positions;
-    this.sizes = sizes;
-
+    this.alwaysOpen = false;
     this.status = "closed";
+    this.previousMouse = false;
+    this.currentMouse = false;
 
     this.arrangeText();
   }
 
   update(dt, inputs) {
-    if (
+    this.currentMouse = inputs.mouseButtonsPressed[0];
+
+    const closedBounds =
       inputs.mousePosition.x > this.positions.backSignClosed.x &&
-      inputs.mousePosition.x <
-        this.positions.backSignClosed.x + this.sizes.backSignClosed.x &&
+      inputs.mousePosition.x < this.positions.backSignClosed.x + this.sizes.backSignClosed.x &&
       inputs.mousePosition.y > this.positions.backSignClosed.y &&
-      inputs.mousePosition.y <
-        this.positions.backSignClosed.y + this.sizes.backSignClosed.y &&
-      inputs.mouseButtonsPressed[0]
-    ) {
+      inputs.mousePosition.y < this.positions.backSignClosed.y + this.sizes.backSignClosed.y;
+
+    const openBounds =
+      inputs.mousePosition.x > this.positions.backSignOpen.x &&
+      inputs.mousePosition.x < this.positions.backSignOpen.x + this.sizes.backSignOpen.x &&
+      inputs.mousePosition.y > this.positions.backSignOpen.y &&
+      inputs.mousePosition.y < this.positions.backSignOpen.y + this.sizes.backSignOpen.y;
+
+    if (!this.currentMouse && this.previousMouse && closedBounds && this.status === "closed") {
       this.status = "open";
     } else if (
-      !(
-        inputs.mousePosition.x >= this.positions.backSignOpen.x &&
-        inputs.mousePosition.x <=
-          this.positions.backSignOpen.x + this.sizes.backSignOpen.x &&
-        inputs.mousePosition.y >= this.positions.backSignOpen.y &&
-        inputs.mousePosition.y <=
-          this.positions.backSignOpen.y + this.sizes.backSignOpen.y
-      ) &&
-      inputs.mouseButtonsPressed[0]
+      (!(openBounds && !this.currentMouse && this.previousMouse) || closedBounds) &&
+      !this.currentMouse &&
+      this.previousMouse
     ) {
       this.status = "closed";
     }
 
     if (this.status === "open") {
       for (let i = 1; i < this.options.length; i++) {
-        if (
+        const optionBounds =
           inputs.mousePosition.x > this.options[i].position.x &&
-          inputs.mousePosition.x <
-            this.options[i].position.x + this.options[i].width &&
+          inputs.mousePosition.x < this.options[i].position.x + this.options[i].width &&
           inputs.mousePosition.y > this.options[i].position.y &&
-          inputs.mousePosition.y <
-            this.options[i].position.y + this.options[i].height &&
-          inputs.mouseButtonsPressed[0]
-        ) {
-          this.options = [
-            this.options[i],
-            ...this.options.filter((item) => item !== this.options[i]),
-          ];
+          inputs.mousePosition.y < this.options[i].position.y + this.options[i].height;
 
+        if (!this.currentMouse && this.previousMouse && optionBounds) {
+          this.options = [this.options[i], ...this.options.filter((item) => item !== this.options[i])];
           this.arrangeText();
           this.status = "closed";
         }
       }
     }
+
+    if (this.alwaysOpen) {
+      this.status = "open";
+    }
+
+    this.previousMouse = this.currentMouse;
   }
 
   draw() {
@@ -312,25 +302,20 @@ export class ChoiceBox {
       this.options[0].draw();
     } else {
       this.choiceBoxSpriteOpen.draw();
-      for (let i = 0; i < this.options.length; i++) {
-        this.options[i].draw();
-      }
+      this.options.forEach((option) => option.draw());
     }
   }
 
   arrangeText() {
-    for (let i = 0; i < this.options.length; i++) {
-      if (i === 0) {
-        this.options[i].position = this.positions.firstOption;
-      } else {
-        this.options[i].position = this.positions.otherOptions[i - 1];
-      }
+    this.options.forEach((option, i) => {
+      option.position =
+        i === 0 ? this.positions.firstOption : this.positions.otherOptions[i - 1];
 
-      this.options[i].position = {
-        x: this.options[i].position.x - this.options[i].width / 2,
-        y: this.options[i].position.y - this.options[i].height / 2,
+      option.position = {
+        x: option.position.x - option.width / 2,
+        y: option.position.y - option.height / 2,
       };
-    }
+    });
   }
 }
 
@@ -353,53 +338,11 @@ export class Slider {
 
   update(dt, inputs) {
     if (this.sliderSpriteBar && this.sliderSpritePin && !this.setSize) {
-      this.sliderSpritePin.size = {
-        x:
-          this.sliderSpritePin.image.width *
-          (this.sliderSpriteBar.size.y / this.sliderSpritePin.image.height),
-        y: this.size.y,
-      };
-
-      this.sliderSpritePin.position = {
-        x:
-          this.position.x +
-          (this.size.x - this.sliderSpritePin.size.x) * this.startPercentage,
-        y: this.position.y,
-      };
-
-      this.setSize = true;
-      this.isLoaded = true;
+      this.setupSliderSizeAndPosition();
     }
 
     if (this.isLoaded) {
-      if (
-        inputs.mousePosition.x > this.sliderSpritePin.position.x &&
-        inputs.mousePosition.x <
-          this.sliderSpritePin.position.x + this.sliderSpritePin.size.x &&
-        inputs.mousePosition.y > this.sliderSpritePin.position.y &&
-        inputs.mousePosition.y <
-          this.sliderSpritePin.position.y + this.sliderSpritePin.size.y &&
-        inputs.mouseButtonsPressed[0]
-      ) {
-        this.status = "active";
-      } else if (this.previousMouse && !inputs.mouseButtonsPressed[0]) {
-        this.status = "passive";
-      }
-
-      if (this.status === "active") {
-        this.sliderSpritePin.position.x =
-          inputs.mousePosition.x - this.sliderSpritePin.size.x / 2;
-
-        if (this.sliderSpritePin.position.x < this.position.x) {
-          this.sliderSpritePin.position.x = this.position.x;
-        } else if (
-          this.sliderSpritePin.position.x >
-          this.position.x + this.size.x - this.sliderSpritePin.size.x
-        ) {
-          this.sliderSpritePin.position.x =
-            this.position.x + this.size.x - this.sliderSpritePin.size.x;
-        }
-      }
+      this.handleMouseInteraction(inputs);
 
       this.previousMouse = inputs.mouseButtonsPressed[0];
     }
@@ -418,51 +361,91 @@ export class Slider {
       (this.size.x - this.sliderSpritePin.size.x)
     );
   }
+
+  setupSliderSizeAndPosition() {
+    this.sliderSpritePin.size = {
+      x: this.sliderSpritePin.image.width * (this.sliderSpriteBar.size.y / this.sliderSpritePin.image.height),
+      y: this.size.y,
+    };
+
+    this.sliderSpritePin.position = {
+      x: this.position.x + (this.size.x - this.sliderSpritePin.size.x) * this.startPercentage,
+      y: this.position.y,
+    };
+
+    this.setSize = true;
+    this.isLoaded = true;
+  }
+
+  handleMouseInteraction(inputs) {
+    const pin = this.sliderSpritePin;
+    const mousePos = inputs.mousePosition;
+
+    if (
+      mousePos.x > pin.position.x &&
+      mousePos.x < pin.position.x + pin.size.x &&
+      mousePos.y > pin.position.y &&
+      mousePos.y < pin.position.y + pin.size.y &&
+      inputs.mouseButtonsPressed[0]
+    ) {
+      this.status = "active";
+    } else if (this.previousMouse && !inputs.mouseButtonsPressed[0]) {
+      this.status = "passive";
+    }
+
+    if (this.status === "active") {
+      pin.position.x = Math.max(this.position.x, Math.min(mousePos.x - pin.size.x / 2, this.position.x + this.size.x - pin.size.x));
+    }
+  }
 }
 
 export class Switch {
-  constructor(path, position, size, status) {
+  constructor(pathOn, pathOff, position, size, status) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
 
-    this.switchOn = new Sprite(path, position, size);
-    this.switchOn.isFlippedHorizontal = true;
-
-    this.switchOff = new Sprite(path, position, size);
-    this.switchOff.isFlippedVertical = true;
+    this.switchOn = new Sprite(pathOn, position, size);
+    this.switchOff = new Sprite(pathOff, position, size);
 
     this.position = position;
     this.size = size;
-
     this.status = status;
-
     this.previousMouse = false;
   }
 
   update(dt, inputs) {
-    if (
+    const isMouseOver =
       inputs.mousePosition.x > this.position.x &&
       inputs.mousePosition.x < this.position.x + this.size.x &&
       inputs.mousePosition.y > this.position.y &&
-      inputs.mousePosition.y < this.position.y + this.size.y &&
-      inputs.mouseButtonsPressed[0] &&
-      !this.previousMouse
-    ) {
-      if (this.status === "off") {
-        this.status = "on";
-      } else {
-        this.status = "off";
-      }
+      inputs.mousePosition.y < this.position.y + this.size.y;
+
+    if (isMouseOver && inputs.mouseButtonsPressed[0] && !this.previousMouse) {
+      this.status = this.status === "off" ? "on" : "off";
     }
 
     this.previousMouse = inputs.mouseButtonsPressed[0];
   }
 
   draw() {
-    if (this.status === "on") {
-      this.switchOn.draw();
-    } else {
-      this.switchOff.draw();
-    }
+    this.status === "on" ? this.switchOn.draw() : this.switchOff.draw();
   }
 }
+
+// export class Screen {
+//   constructor() {
+//     this.sprites = [];
+//   }
+
+//   update(dt, inputs) {
+//     for (let i = 0; i < this.sprites.length; i++) {
+//       this.sprites[i].update(dt, inputs);
+//     }
+//   }
+
+//   draw() {
+//     for (let i = 0; i < this.sprites.length; i++) {
+//       this.sprites[i].draw();
+//     }
+//   }
+// }
