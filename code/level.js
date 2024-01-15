@@ -16,9 +16,7 @@ export class Level {
   }
 
   update(dt, inputs) {
-    if (inputs.keysPressed[27]) {
-      this.clickedBack = true;
-    }
+    if (inputs.keysPressed[27]) this.clickedBack = true;
 
     this.slingshot.update(dt, inputs);
     this.player.update(dt, inputs);

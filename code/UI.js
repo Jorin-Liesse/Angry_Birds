@@ -431,21 +431,3 @@ export class Switch {
     this.status === "on" ? this.switchOn.draw() : this.switchOff.draw();
   }
 }
-
-// export class Screen {
-//   constructor() {
-//     this.sprites = [];
-//   }
-
-//   update(dt, inputs) {
-//     for (let i = 0; i < this.sprites.length; i++) {
-//       this.sprites[i].update(dt, inputs);
-//     }
-//   }
-
-//   draw() {
-//     for (let i = 0; i < this.sprites.length; i++) {
-//       this.sprites[i].draw();
-//     }
-//   }
-// }

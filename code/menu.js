@@ -1,10 +1,10 @@
-import { Sprite, Text, Button, Slider, Switch, ChoiceBox } from "./UI.js";
+import { Sprite, Text, Button, Slider, Switch, ChoiceBox, Circle } from "./UI.js";
 
 export class Menu {
   constructor() {
     this.canvas = document.getElementById("mainCanvas");
 
-    this.activeMenu = "MainMenu"; // MainMenu, OptionsMenu, CreditsMenu, GameMenu,
+    this.activeMenu = "MainMenu"; // MainMenu, OptionsMenu, CreditsMenu, GameMenu, LevelSelector,
     this.activeOptionsMenu = "GraphicsMenu"; // GraphicsMenu, SoundMenu, ControllsMenu,
     this.clickedStart = false;
     this.contentLoaded = false;
@@ -105,7 +105,7 @@ export class Menu {
                   data[menu][element].color
                 );
 
-                // this.sprites[menu][element].alwaysOpen = true;
+                this.sprites[menu][element].alwaysOpen = true;
                 break;
               case "Slider":
                 this.sprites[menu][element] = new Slider(
@@ -151,22 +151,53 @@ export class Menu {
   update(dt, inputs) {
     if (!this.contentLoaded) return;
 
+    const position = {x: 1342.69, y: 773.72};
+    const size = {x: 230.1, y: 43.75};
+
+    const centerPosition = {x: ((position.x + size.x /2) / 1920) * this.canvas.width, y: ((position.y + size.y /2) / 1080) * this.canvas.height};
+
+    const test = {x: centerPosition.x - this.sprites.GraphicsMenu.textResolution.width / 2,
+    y: centerPosition.y - this.sprites.GraphicsMenu.textResolution.height / 2};
+
+    console.log({x: centerPosition.x / this.canvas.width, y: centerPosition.y / this.canvas.height});
+
     switch (this.activeMenu) {
       case "MainMenu":
-        if (this.sprites.MainMenu.buttonStart.clicked()) this.clickedStart = true;
+        if (this.sprites.MainMenu.buttonStart.clicked()) this.activeMenu = "LevelSelector";
         if (this.sprites.MainMenu.buttonOptions.clicked()) this.activeMenu = "OptionsMenu";
-        if (this.sprites.MainMenu.buttonQuit.clicked()) window.close();;
+        if (this.sprites.MainMenu.buttonQuit.clicked()) window.close();
 
+        if (this.sprites.MainMenu.infoButton.clicked()) this.activeMenu = "CreditsMenu";
         break;
       case "OptionsMenu":
-        if (this.sprites.OptionsMenu.buttonGraphics.clicked()) this.activeOptionsMenu = "GraphicsMenu";
-        if (this.sprites.OptionsMenu.buttonSound.clicked()) this.activeOptionsMenu = "SoundMenu";
-        if (this.sprites.OptionsMenu.buttonControlls.clicked()) this.activeOptionsMenu = "ControllsMenu";
+        switch (this.activeOptionsMenu) {
+          case "GraphicsMenu":
+            if (this.sprites[this.activeOptionsMenu].buttonSound.clicked()) this.activeOptionsMenu = "SoundMenu";
+            if (this.sprites[this.activeOptionsMenu].buttonControlls.clicked()) this.activeOptionsMenu = "ControllsMenu";
+            break;
 
+          case "SoundMenu":
+            if (this.sprites[this.activeOptionsMenu].buttonGraphics.clicked()) this.activeOptionsMenu = "GraphicsMenu";
+            if (this.sprites[this.activeOptionsMenu].buttonControlls.clicked()) this.activeOptionsMenu = "ControllsMenu";
+            break;
+
+          case "ControllsMenu":
+            if (this.sprites[this.activeOptionsMenu].buttonGraphics.clicked()) this.activeOptionsMenu = "GraphicsMenu";
+            if (this.sprites[this.activeOptionsMenu].buttonSound.clicked()) this.activeOptionsMenu = "SoundMenu";
+            break;
+        }
+
+        if (inputs.keysPressed[27]) this.activeMenu = "MainMenu";
         if (this.sprites.OptionsMenu.backButton.clicked()) this.activeMenu = "MainMenu";
 
         break;
       case "CreditsMenu":
+        if (inputs.keysPressed[27]) this.activeMenu = "MainMenu";
+        if (this.sprites.CreditsMenu.backButton.clicked()) this.activeMenu = "MainMenu";
+        break;
+      case "LevelSelector":
+        if (inputs.keysPressed[27]) this.activeMenu = "MainMenu";
+        if (this.sprites.LevelSelector.backButton.clicked()) this.activeMenu = "MainMenu";
         break;
       case "GameMenu":
         break;
