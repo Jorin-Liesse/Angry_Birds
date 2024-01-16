@@ -6,7 +6,7 @@
       "position": { "x": 0, "y": 0 },
       "size": { "x": 1, "y": 1 }
     },
-    "GrayFilter": {
+    "grayFilter": {
       "type": "Sprite",
       "path": "assets/UI/GrayFilter.png",
       "position": { "x": 0, "y": 0 },
@@ -70,7 +70,7 @@
       "position": { "x": 0, "y": 0 },
       "size": { "x": 1, "y": 1 }
     },
-    "GrayFilter": {
+    "grayFilter": {
       "type": "Sprite",
       "path": "assets/UI/GrayFilter.png",
       "position": { "x": 0, "y": 0 },
@@ -388,7 +388,7 @@
       "position": { "x": 0.021, "y": 0.830 },
       "size": { "x": 0.075, "y": 0.133 }
     },
-    "GrayFilter": {
+    "grayFilter": {
       "type": "Sprite",
       "path": "assets/UI/GrayFilter.png",
       "position": { "x": 0, "y": 0 },
@@ -433,22 +433,148 @@
       "path": "assets/UI/Background.png",
       "position": { "x": 0, "y": 0 },
       "size": { "x": 1, "y": 1 }
+    },
+    "pauseButton": {
+      "type": "Button",
+      "pathUp": "assets/UI/OptionButtonUp.png",
+      "pathDown": "assets/UI/OptionButtonDown.png",
+      "text": "",
+      "position": { "x": 0.013, "y": 0.015 },
+      "size": { "x": 0.075, "y": 0.133 }
+    },
+    "inventoryButton": {
+      "type": "Button",
+      "pathUp": "assets/UI/InventoryButtonUp.png",
+      "pathDown": "assets/UI/InventoryButtonDown.png",
+      "text": "",
+      "position": { "x": 0.927, "y": 0.008 },
+      "size": { "x": 0.053, "y": 0.140 }
     }
   },
   "InGameMenu": {
-    "GrayFilter": {
+    "background": {
+      "type": "Sprite",
+      "path": "assets/UI/Background.png",
+      "position": { "x": 0, "y": 0 },
+      "size": { "x": 1, "y": 1 }
+    },
+    "pauseButton": {
+      "type": "Sprite",
+      "path": "assets/UI/OptionButtonUp.png",
+      "position": { "x": 0.013, "y": 0.015 },
+      "size": { "x": 0.075, "y": 0.133 }
+    },
+    "inventoryButton": {
+      "type": "Sprite",
+      "path": "assets/UI/InventoryButtonUp.png",
+      "position": { "x": 0.927, "y": 0.008 },
+      "size": { "x": 0.053, "y": 0.140 }
+    },
+    "grayFilter": {
       "type": "Sprite",
       "path": "assets/UI/GrayFilter.png",
       "position": { "x": 0, "y": 0 },
       "size": { "x": 1, "y": 1 }
+    },
+    "backSignSmall": {
+      "type": "Sprite",
+      "path": "assets/UI/BackFrameSmall.png",
+      "position": { "x": 0.063, "y": 0.148 },
+      "size": { "x": 0.302, "y": 0.704 }
+    },
+    "titleBox": {
+      "type": "Sprite",
+      "path": "assets/UI/TitleBox.png",
+      "position": { "x": 0.045, "y": 0.057 },
+      "size": { "x": 0.337, "y": 0.209 }
+    },
+    "title": {
+      "type": "Sprite",
+      "path": "assets/UI/Paused.png",
+      "position": { "x": 0.045, "y": 0.057 },
+      "size": { "x": 0.337, "y": 0.209 }
+    },
+    "resumeButton": {
+      "type": "Button",
+      "pathUp": "assets/UI/ButtonUp.png",
+      "pathDown": "assets/UI/ButtonDown.png",
+      "text": "Resume",
+      "position": { "x": 0.107, "y": 0.253 },
+      "size": { "x": 0.215, "y": 0.138 }
+    },
+    "restartButton": {
+      "type": "Button",
+      "pathUp": "assets/UI/ButtonUp.png",
+      "pathDown": "assets/UI/ButtonDown.png",
+      "text": "Restart",
+      "position": { "x": 0.107, "y": 0.430 },
+      "size": { "x": 0.215, "y": 0.138 }
+    },
+    "exitButton": {
+      "type": "Button",
+      "pathUp": "assets/UI/ButtonUp.png",
+      "pathDown": "assets/UI/ButtonDown.png",
+      "text": "Exit",
+      "position": { "x": 0.107, "y": 0.606 },
+      "size": { "x": 0.215, "y": 0.138 }
     }
   },
   "Inventory": {
-    "GrayFilter": {
+    "background": {
+      "type": "Sprite",
+      "path": "assets/UI/Background.png",
+      "position": { "x": 0, "y": 0 },
+      "size": { "x": 1, "y": 1 }
+    },
+    "pauseButton": {
+      "type": "Sprite",
+      "path": "assets/UI/OptionButtonUp.png",
+      "position": { "x": 0.013, "y": 0.015 },
+      "size": { "x": 0.075, "y": 0.133 }
+    },
+    "inventoryButton": {
+      "type": "Sprite",
+      "path": "assets/UI/InventoryButtonUp.png",
+      "position": { "x": 0.927, "y": 0.008 },
+      "size": { "x": 0.053, "y": 0.140 }
+    },
+    "grayFilter": {
       "type": "Sprite",
       "path": "assets/UI/GrayFilter.png",
       "position": { "x": 0, "y": 0 },
       "size": { "x": 1, "y": 1 }
+    },
+    "backSignBig": {
+      "type": "Sprite",
+      "path": "assets/UI/BackFrameMedium.png",
+      "position": { "x": 0.229, "y": 0.148 },
+      "size": { "x": 0.542, "y": 0.704 }
+    },
+    "titleBox": {
+      "type": "Sprite",
+      "path": "assets/UI/TitleBox.png",
+      "position": { "x": 0.331, "y": 0.057 },
+      "size": { "x": 0.337, "y": 0.209 }
+    },
+    "title": {
+      "type": "Sprite",
+      "path": "assets/UI/Inventory.png",
+      "position": { "x": 0.331, "y": 0.057 },
+      "size": { "x": 0.337, "y": 0.209 }
+    },
+    "iconsInventory": {
+      "type": "Sprite",
+      "path": "assets/UI/IconsInventory.png",
+      "position": { "x": 0.281, "y": 0.315 },
+      "size": { "x": 0.438, "y": 0.370 }
+    },
+    "backButton": {
+      "type": "Button",
+      "pathUp": "assets/UI/CrossButtonUp.png",
+      "pathDown": "assets/UI/CrossButtonDown.png",
+      "text": "",
+      "position": { "x": 0.724, "y": 0.097 },
+      "size": { "x": 0.075, "y": 0.133 }
     }
   },
   "LevelSelector": {
@@ -458,7 +584,7 @@
       "position": { "x": 0, "y": 0 },
       "size": { "x": 1, "y": 1 }
     },
-    "GrayFilter": {
+    "grayFilter": {
       "type": "Sprite",
       "path": "assets/UI/GrayFilter.png",
       "position": { "x": 0, "y": 0 },
@@ -489,6 +615,120 @@
       "text": "",
       "position": { "x": 0.829, "y": 0.097 },
       "size": { "x": 0.075, "y": 0.133 }
+    }
+  },
+  "NotVisable": {
+    "blockArrowsLeft": {
+      "type": "Sprite",
+      "path": "assets/UI/BlockArrowsLeft.png",
+      "position": { "x": 0.139, "y": 0.446 },
+      "size": { "x": 0.076, "y": 0.112 }
+    },
+    "blockArrowsRight": {
+      "type": "Sprite",
+      "path": "assets/UI/BlockArrowsRight.png",
+      "position": { "x": 0.785, "y": 0.446 },
+      "size": { "x": 0.076, "y": 0.112 }
+    },
+    "arrowsButtonLeft": {
+      "type": "Button",
+      "pathUp": "assets/UI/ArrowsButtonUpLeft.png",
+      "pathDown": "assets/UI/ArrowsButtonDownLeft.png",
+      "text": "",
+      "position": { "x": 0.133, "y": 0.434 },
+      "size": { "x": 0.0875, "y": 0.131 }
+    },
+    "arrowsButtonRight": {
+      "type": "Button",
+      "pathUp": "assets/UI/ArrowsButtonUpRight.png",
+      "pathDown": "assets/UI/ArrowsButtonDownRight.png",
+      "text": "",
+      "position": { "x": 0.780, "y": 0.434 },
+      "size": { "x": 0.0875, "y": 0.131 }
+    }
+  },
+  "LevelsButtonBig": {
+    "level1": {
+      "type": "Button",
+      "pathUp": "assets/UI/LevelsPreview/BigUp/1.png",
+      "pathDown": "assets/UI/LevelsPreview/BigDown/1.png",
+      "text": "",
+      "position": { "x": 0.0, "y": 0.0 },
+      "size": { "x": 0.188, "y": 0.434 }
+    },
+    "level2": {
+      "type": "Button",
+      "pathUp": "assets/UI/LevelsPreview/BigUp/2.png",
+      "pathDown": "assets/UI/LevelsPreview/BigDown/2.png",
+      "text": "",
+      "position": { "x": 0.0, "y": 0.0 },
+      "size": { "x": 0.188, "y": 0.434 }
+    },
+    "level3": {
+      "type": "Button",
+      "pathUp": "assets/UI/LevelsPreview/BigUp/3.png",
+      "pathDown": "assets/UI/LevelsPreview/BigDown/3.png",
+      "text": "",
+      "position": { "x": 0.0, "y": 0.0 },
+      "size": { "x": 0.188, "y": 0.434 }
+    },
+    "level4": {
+      "type": "Button",
+      "pathUp": "assets/UI/LevelsPreview/BigUp/4.png",
+      "pathDown": "assets/UI/LevelsPreview/BigDown/4.png",
+      "text": "",
+      "position": { "x": 0.0, "y": 0.0 },
+      "size": { "x": 0.188, "y": 0.434 }
+    },
+    "level5": {
+      "type": "Button",
+      "pathUp": "assets/UI/LevelsPreview/BigUp/5.png",
+      "pathDown": "assets/UI/LevelsPreview/BigDown/5.png",
+      "text": "",
+      "position": { "x": 0.0, "y": 0.0 },
+      "size": { "x": 0.188, "y": 0.434 }
+    }
+  },
+  "LevelsButtonSmall": {
+    "level1": {
+      "type": "Button",
+      "pathUp": "assets/UI/LevelsPreview/SmallUp/1.png",
+      "pathDown": "assets/UI/LevelsPreview/SmallDown/1.png",
+      "text": "",
+      "position": { "x": 0.0, "y": 0.0 },
+      "size": { "x": 0.169, "y": 0.394 }
+    },
+    "level2": {
+      "type": "Button",
+      "pathUp": "assets/UI/LevelsPreview/SmallUp/2.png",
+      "pathDown": "assets/UI/LevelsPreview/SmallDown/2.png",
+      "text": "",
+      "position": { "x": 0.0, "y": 0.0 },
+      "size": { "x": 0.169, "y": 0.394 }
+    },
+    "level3": {
+      "type": "Button",
+      "pathUp": "assets/UI/LevelsPreview/SmallUp/3.png",
+      "pathDown": "assets/UI/LevelsPreview/SmallDown/3.png",
+      "text": "",
+      "position": { "x": 0.0, "y": 0.0 },
+      "size": { "x": 0.169, "y": 0.394 }
+    },
+    "level4": {
+      "type": "Button",
+      "pathUp": "assets/UI/LevelsPreview/SmallUp/4.png",
+      "pathDown": "assets/UI/LevelsPreview/SmallDown/4.png",
+      "text": "",
+      "position": { "x": 0.0, "y": 0.0 },
+      "size": { "x": 0.169, "y": 0.394 }
+    },
+    "level5": {
+      "type": "Button",
+      "pathUp": "assets/UI/LevelsPreview/SmallUp/5.png",
+      "pathDown": "assets/UI/LevelsPreview/SmallDown/5.png",
+      "text": "",
+      "position": { "x": 0.0, "y": 0.0 },
+      "size": { "x": 0.169, "y": 0.394 }
     }
   }
 }

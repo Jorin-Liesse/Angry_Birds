@@ -177,7 +177,7 @@ export class Button {
 
     this.previousMouse = false;
     this.currentMouse = false;
-    this.previousstatus = "up"; // Added initialization for previousstatus
+    this.previousstatus = "up";
   }
 
   update(dt, inputs) {
@@ -216,6 +216,21 @@ export class Button {
       this.previousstatus = this.status;
       return false;
     }
+  }
+
+  changePosition(position) {
+    this.position = position;
+    this.buttonSpriteUp.position = position;
+    this.buttonSpriteDown.position = position;
+
+    this.buttonTextUp.position = {
+      x: position.x + this.size.x / 2,
+      y: position.y + this.size.y / 2 - this.buttonTextUp.height / 2,
+    };
+    this.buttonTextDown.position = {
+      x: position.x + this.size.x / 2,
+      y: position.y + this.size.y / 2 + this.canvas.height * 0.01 - this.buttonTextUp.height / 2,
+    };
   }
 }
 
