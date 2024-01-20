@@ -75,6 +75,12 @@ export class Slingshot {
       this.interacting = false;
     }
 
+    if (this.isShot) {
+      this.interacting = false;
+      this.isShot = false;
+      this.timer = 0;
+    }
+
     if (this.previousMouseButtonsPressed && !inputs.mouseButtonsPressed[0]) {
       this.isShot = true;
     }
@@ -127,7 +133,7 @@ export class Slingshot {
           break;
         }
 
-        this.circles.push(new Circle({ x: x, y: y }, 10, "red"));
+        this.circles.push(new Circle({ x: x, y: y }, this.canvas.width * 0.0075, "red"));
         i++;
       }
     } 

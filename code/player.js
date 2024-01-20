@@ -13,6 +13,12 @@ export class Player {
 
     this.position = {x: this.canvas.width * 0.177, y: this.canvas.height * 0.407};
 
+    this.isShot = false;
+
+    this.lenght = 0;
+    this.force = {x: 0, y: 0};
+    this.shotPosition = {x: 0, y: 0};
+
     this.sprite = new Sprite(
       "assets/Game/BirdRed.png",
       this.position,
@@ -22,16 +28,24 @@ export class Player {
   update(dt, inputs) {
     if (this.slingshot == null) return;
 
-    const distanceIncrement = this.slingshot.lenght * this.timer * this.SPEED
+    if (this.slingshot.isShot && !this.isShot) {
+      this.lenght = this.slingshot.lenght;
+      this.force = this.slingshot.force;
+      this.shotPosition = this.slingshot.shotPosition;
 
-    if (this.slingshot.isShot) {
+      this.isShot = true;
+    }
+
+    if (this.isShot) {
+      const distanceIncrement = this.lenght * this.timer * this.SPEED;
+
       const x = (
-        this.slingshot.shotPosition.x +
-        (this.slingshot.force.x / this.canvas.width) * distanceIncrement
+        this.shotPosition.x +
+        (this.force.x / this.canvas.width) * distanceIncrement
       );
       const y = (
-        this.slingshot.shotPosition.y +
-        (this.slingshot.force.y / this.canvas.height) * distanceIncrement +
+        this.shotPosition.y +
+        (this.force.y / this.canvas.height) * distanceIncrement +
         0.5 * this.GRAVITY * Math.pow(distanceIncrement / this.canvas.height, 2)
       );
 
