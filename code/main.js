@@ -182,54 +182,54 @@ class Main {
 
     switch (this.activeMenu) {
       case "MainMenu":
-        if (this.screens.MainMenu.buttonStart.click) this.activeMenu = "LevelSelector";
-        if (this.screens.MainMenu.buttonOptions.click) this.activeMenu = "OptionsMenu";
-        if (this.screens.MainMenu.buttonQuit.click) window.close();
+        if (this.screens.MainMenu.buttonStart.clicked()) this.activeMenu = "LevelSelector";
+        if (this.screens.MainMenu.buttonOptions.clicked()) this.activeMenu = "OptionsMenu";
+        if (this.screens.MainMenu.buttonQuit.clicked()) window.close();
 
-        if (this.screens.MainMenu.infoButton.click) this.activeMenu = "CreditsMenu";
+        if (this.screens.MainMenu.infoButton.clicked()) this.activeMenu = "CreditsMenu";
         break;
       case "OptionsMenu":
         switch (this.activeOptionsMenu) {
           case "GraphicsMenu":
-            if (this.screens[this.activeOptionsMenu].buttonSound.click) this.activeOptionsMenu = "SoundMenu";
-            if (this.screens[this.activeOptionsMenu].buttonControlls.click) this.activeOptionsMenu = "ControllsMenu";
+            if (this.screens[this.activeOptionsMenu].buttonSound.clicked()) this.activeOptionsMenu = "SoundMenu";
+            if (this.screens[this.activeOptionsMenu].buttonControlls.clicked()) this.activeOptionsMenu = "ControllsMenu";
             break;
 
           case "SoundMenu":
-            if (this.screens[this.activeOptionsMenu].buttonGraphics.click) this.activeOptionsMenu = "GraphicsMenu";
-            if (this.screens[this.activeOptionsMenu].buttonControlls.click) this.activeOptionsMenu = "ControllsMenu";
+            if (this.screens[this.activeOptionsMenu].buttonGraphics.clicked()) this.activeOptionsMenu = "GraphicsMenu";
+            if (this.screens[this.activeOptionsMenu].buttonControlls.clicked()) this.activeOptionsMenu = "ControllsMenu";
             break;
 
           case "ControllsMenu":
-            if (this.screens[this.activeOptionsMenu].buttonGraphics.click) this.activeOptionsMenu = "GraphicsMenu";
-            if (this.screens[this.activeOptionsMenu].buttonSound.click) this.activeOptionsMenu = "SoundMenu";
+            if (this.screens[this.activeOptionsMenu].buttonGraphics.clicked()) this.activeOptionsMenu = "GraphicsMenu";
+            if (this.screens[this.activeOptionsMenu].buttonSound.clicked()) this.activeOptionsMenu = "SoundMenu";
             break;
         }
 
         if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "MainMenu";
-        if (this.screens.OptionsMenu.backButton.click) this.activeMenu = "MainMenu";
+        if (this.screens.OptionsMenu.backButton.clicked()) this.activeMenu = "MainMenu";
 
         break;
       case "CreditsMenu":
         if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "MainMenu";
-        if (this.screens.CreditsMenu.backButton.click) this.activeMenu = "MainMenu";
+        if (this.screens.CreditsMenu.backButton.clicked()) this.activeMenu = "MainMenu";
         break;
       case "LevelSelector":
         if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "MainMenu";
-        if (this.screens.LevelSelector.backButton.click) this.activeMenu = "MainMenu";
+        if (this.screens.LevelSelector.backButton.clicked()) this.activeMenu = "MainMenu";
 
-        if (this.screens.LevelSelector.arrowsButtonLeft && this.screens.LevelSelector.arrowsButtonLeft.click) {
+        if (this.screens.LevelSelector.arrowsButtonLeft && this.screens.LevelSelector.arrowsButtonLeft.clicked()) {
           this.levelPrevieuwCenter -= 1;
           this.#arrangeLevelPrevieuws();
         }
-        if (this.screens.LevelSelector.arrowsButtonRight && this.screens.LevelSelector.arrowsButtonRight.click) {
+        if (this.screens.LevelSelector.arrowsButtonRight && this.screens.LevelSelector.arrowsButtonRight.clicked()) {
           this.levelPrevieuwCenter += 1;
           this.#arrangeLevelPrevieuws();
         }
 
         for (let level in this.screens.LevelSelector) {
           if (level.includes("level")) {
-            if (this.screens.LevelSelector[level].click) {
+            if (this.screens.LevelSelector[level].clicked()) {
               this.activeMenu = "Game";
             }
           }
@@ -238,22 +238,22 @@ class Main {
         break;
       case "Game":
         if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "InGameMenu";
-        if (this.screens.Game.pauseButton.click) this.activeMenu = "InGameMenu";
-        if (this.screens.Game.inventoryButton.click) this.activeMenu = "Inventory";
+        if (this.screens.Game.pauseButton.clicked()) this.activeMenu = "InGameMenu";
+        if (this.screens.Game.inventoryButton.clicked()) this.activeMenu = "Inventory";
         break;
 
       case "InGameMenu":
         if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "Game";
 
-        if (this.screens.InGameMenu.resumeButton.click) this.activeMenu = "Game";
-        if (this.screens.InGameMenu.restartButton.click) this.activeMenu = "Game";
-        if (this.screens.InGameMenu.exitButton.click) this.activeMenu = "MainMenu";
+        if (this.screens.InGameMenu.resumeButton.clicked()) this.activeMenu = "Game";
+        if (this.screens.InGameMenu.restartButton.clicked()) this.activeMenu = "Game";
+        if (this.screens.InGameMenu.exitButton.clicked()) this.activeMenu = "MainMenu";
         break;
 
       case "Inventory":
         if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "Game";
 
-        if (this.screens.Inventory.backButton.click) this.activeMenu = "Game";
+        if (this.screens.Inventory.backButton.clicked()) this.activeMenu = "Game";
         break;
     }
 

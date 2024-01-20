@@ -158,8 +158,8 @@ export class Button {
     this.buttonTextUp = new Text(text, position, size.x / 4, "#c6ac9f");
     this.buttonTextDown = new Text(text, position, size.x / 4.5, "#c6ac9f");
 
-    this.downSound = new Audio('assets/audio/UI/clickButton.mp3');
-    this.upSound = new Audio('assets/audio/UI/clickButton.mp3');
+    this.downSound = new Audio('assets/audio/UI/buttonDown.mp3');
+    this.upSound = new Audio('assets/audio/UI/buttonUp.mp3');
 
     this.downSound.volume = 1;
     this.upSound.volume = 1;
@@ -180,7 +180,6 @@ export class Button {
     this.size = size;
 
     this.status = "up";
-    this.click = false;
 
     this.previousMouse = false;
     this.currentMouse = false;
@@ -201,24 +200,6 @@ export class Button {
     } else {
       this.status = "up";
     }
-
-    if (this.previousstatus === "up" && this.status === "down") {
-      this.downSound.play();
-    }
-
-    if (this.currentMouse && !this.previousMouse && this.previousstatus === "down" && this.click === true){
-      this.upSound.play();
-    }
-
-    if (!this.currentMouse && this.previousMouse && this.previousstatus === "down") {
-      this.click = true;
-      this.downSound.play();
-    } else {
-      this.click = false;
-    }
-
-    this.previousstatus = this.status;
-    this.previousMouse = this.currentMouse;
   }
 
   draw() {
@@ -229,6 +210,25 @@ export class Button {
       this.buttonSpriteDown.draw();
       this.buttonTextDown.draw();
     }
+  }
+  
+  clicked() {
+    let click = false;
+
+    if (this.currentMouse && !this.previousMouse && this.previousstatus === "up" && this.status === "down"){
+      this.upSound.play();
+      console.log("up");
+    }
+
+    if (!this.currentMouse && this.previousMouse && this.previousstatus === "down") {
+      click = true;
+      this.downSound.play();
+    }
+
+    this.previousstatus = this.status;
+    this.previousMouse = this.currentMouse;
+
+    return click;
   }
 
   changePosition(position) {
