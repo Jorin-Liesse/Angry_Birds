@@ -30,7 +30,11 @@ class Main {
     const soundtrack = new Audio('assets/audio/UI/soundtrack.mp3');
     soundtrack.volume = 0.5;
     soundtrack.loop = true;
-    soundtrack.play();
+
+    document.addEventListener("click", () => {
+      soundtrack.play();
+      
+    }, { once: true });
 
     fetch("menu.json")
       .then((response) => {
