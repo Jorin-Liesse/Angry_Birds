@@ -1,11 +1,11 @@
 import { Sprite } from "./UI.js";
 
 export class Player {
-  SPEED = 0.25;
-  GRAVITY = 10;
-
   constructor() {
     this.canvas = document.getElementById("mainCanvas");
+
+    this.GRAVITY = 0.01 * this.canvas.width;
+    this.SPEED = 0.05 * this.canvas.width;
 
     this.slingshot = null;
 
@@ -37,7 +37,7 @@ export class Player {
     }
 
     if (this.isShot) {
-      const distanceIncrement = this.lenght * this.timer * this.SPEED;
+      const distanceIncrement = this.timer * this.SPEED;
 
       const x = (
         this.shotPosition.x +

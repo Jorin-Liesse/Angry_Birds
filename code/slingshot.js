@@ -1,12 +1,12 @@
 import { Line, Circle, Sprite } from "./UI.js";
 
 export class Slingshot {
-  GRAVITY = 10;
-  DISTANCEINCREMENT = 500;
-  NETRETURNSPEED = 30;
-
   constructor(position, size, range) {
     this.canvas = document.getElementById("mainCanvas");
+
+    this.GRAVITY = 0.01 * this.canvas.width;
+    this.DISTANCEINCREMENT = 0.6 * this.canvas.width;
+    this.NETRETURNSPEED = 0.03 * this.canvas.width;
 
     this.position = position;
     this.size = size;
