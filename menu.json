@@ -449,6 +449,20 @@
       "text": "",
       "position": { "x": 0.927, "y": 0.008 },
       "size": { "x": 0.053, "y": 0.140 }
+    },
+    "player": {
+      "type": "Player",
+      "path": "assets/Game/BirdRed.png",
+      "position": { "x": 0.177, "y": 0.107 },
+      "size": { "x": 0.078, "y": 0.1315 }
+    },
+    "slingshot": {
+      "type": "Slingshot",
+      "pathPool": "assets/Game/SlingshotPool.png",
+      "pathNet": "assets/Game/SlingshotNet.png",
+      "position": { "x": 0.220, "y": 0.525 },
+      "size": { "x": 0.089, "y": 0.259 },
+      "range": 0.15
     }
   },
   "InGameMenu": {

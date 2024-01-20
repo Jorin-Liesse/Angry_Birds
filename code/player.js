@@ -1,7 +1,7 @@
 import { Sprite } from "./UI.js";
 
 export class Player {
-  constructor() {
+  constructor(path, position, size) {
     this.canvas = document.getElementById("mainCanvas");
 
     this.GRAVITY = 0.01 * this.canvas.width;
@@ -11,7 +11,8 @@ export class Player {
 
     this.timer = 0;
 
-    this.position = {x: this.canvas.width * 0.177, y: this.canvas.height * 0.407};
+    this.position = position;
+    this.size = size;
 
     this.isShot = false;
 
@@ -20,9 +21,9 @@ export class Player {
     this.shotPosition = {x: 0, y: 0};
 
     this.sprite = new Sprite(
-      "assets/Game/BirdRed.png",
+      path,
       this.position,
-      {x: this.canvas.width * 0.078, y: this.canvas.height * 0.1315});
+      this.size);
   }
 
   update(dt, inputs) {

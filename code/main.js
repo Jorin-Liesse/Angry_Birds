@@ -14,7 +14,7 @@ class Main {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
 
-    this.#adjustAspectRatio();
+    this.adjustAspectRatio();
 
     this.#events();
 
@@ -33,145 +33,7 @@ class Main {
 
     document.addEventListener("click", () => {
       soundtrack.play();
-      
     }, { once: true });
-
-    fetch("menu.json")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        for (const menu in data) {
-          this.screens[menu] = {};
-          for (const element in data[menu]) {
-            switch (data[menu][element].type) {
-              case "Sprite":
-                this.screens[menu][element] = new Sprite(
-                  data[menu][element].path,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  }
-                );
-                break;
-              case "Text":
-                this.screens[menu][element] = new Text(
-                  data[menu][element].text,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  this.canvas.width * data[menu][element].size,
-                  data[menu][element].color
-                );
-                break;
-              case "Button":
-                this.screens[menu][element] = new Button(
-                  data[menu][element].pathUp,
-                  data[menu][element].pathDown,
-                  data[menu][element].text,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  }
-                );
-                break;
-              case "ChoiceBox":
-                this.screens[menu][element] = new ChoiceBox(
-                  data[menu][element].pathOpen,
-                  data[menu][element].pathClosed,
-                  data[menu][element].options,
-                  {
-                    backSignOpen: {
-                      x: this.canvas.width * data[menu][element].position.backSignOpen.x,
-                      y: this.canvas.height * data[menu][element].position.backSignOpen.y,
-                    },
-                    backSignClosed: {
-                      x: this.canvas.width * data[menu][element].position.backSignClosed.x,
-                      y: this.canvas.height * data[menu][element].position.backSignClosed.y,
-                    },
-                    firstOption: {
-                      x: this.canvas.width * data[menu][element].position.firstOption.x,
-                      y: this.canvas.height * data[menu][element].position.firstOption.y,
-                    },
-                    otherOptions: [
-                      {
-                        x: this.canvas.width * data[menu][element].position.secondOptions.x,
-                        y: this.canvas.height * data[menu][element].position.secondOptions.y,
-                      },
-                      {
-                        x: this.canvas.width * data[menu][element].position.thirdOptions.x,
-                        y: this.canvas.height * data[menu][element].position.thirdOptions.y,
-                      },
-                    ],
-                  },
-                  {
-                    backSignOpen: {
-                      x: this.canvas.width * data[menu][element].size.backSignOpen.x,
-                      y: this.canvas.height * data[menu][element].size.backSignOpen.y,
-                    },
-                    backSignClosed: {
-                      x: this.canvas.width * data[menu][element].size.backSignClosed.x,
-                      y: this.canvas.height * data[menu][element].size.backSignClosed.y,
-                    },
-                    text: this.canvas.width * data[menu][element].size.text,
-                  },
-                  data[menu][element].color
-                );
-
-                this.screens[menu][element].alwaysOpen = true;
-                break;
-              case "Slider":
-                this.screens[menu][element] = new Slider(
-                  data[menu][element].pathBar,
-                  data[menu][element].pathPin,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  },
-                  data[menu][element].value
-                );
-                break;
-              case "Switch":
-                this.screens[menu][element] = new Switch(
-                  data[menu][element].pathOn,
-                  data[menu][element].pathOff,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  },
-                  data[menu][element].value
-                );
-                break;
-            }
-          }
-        }
-
-        this.#atLoaded();
-        this.contentLoaded = true;
-      })
-      .catch((error) => {
-        console.error("There was a problem fetching the data:", error);
-      });
   }
 
   run() {
@@ -301,7 +163,7 @@ class Main {
     this.#timeLastFrame = this.#timeThisFrame;
   }
 
-  #adjustAspectRatio() {
+  adjustAspectRatio() {
     if ((window.innerHeight * 16) / 9 > window.innerWidth) {
       this.canvas.width = window.innerWidth;
       this.canvas.height = (window.innerWidth * 9) / 16;
@@ -309,6 +171,8 @@ class Main {
       this.canvas.width = (window.innerHeight * 16) / 9;
       this.canvas.height = window.innerHeight;
     }
+
+    this.#loadUI();
   }
 
   #events() {
@@ -368,8 +232,8 @@ class Main {
       this.#inputs.mouseButtonsPressed[0] = false;
     });
 
-    window.addEventListener("resize", function () {
-      location.reload();
+    window.addEventListener("resize", () => {
+      this.adjustAspectRatio();
     });
 
     this.#currentinput = this.#inputs;
@@ -378,13 +242,175 @@ class Main {
 
   #atLoaded() {
     this.#arrangeLevelPrevieuws();
+  }
 
-    this.screens.Game.player = new Player();
+  #loadUI() {
+    fetch("menu.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        for (const menu in data) {
+          this.screens[menu] = {};
+          for (const element in data[menu]) {
+            switch (data[menu][element].type) {
+              case "Sprite":
+                this.screens[menu][element] = new Sprite(
+                  data[menu][element].path,
+                  {
+                    x: this.canvas.width * data[menu][element].position.x,
+                    y: this.canvas.height * data[menu][element].position.y,
+                  },
+                  {
+                    x: this.canvas.width * data[menu][element].size.x,
+                    y: this.canvas.height * data[menu][element].size.y,
+                  }
+                );
+                break;
+              case "Text":
+                this.screens[menu][element] = new Text(
+                  data[menu][element].text,
+                  {
+                    x: this.canvas.width * data[menu][element].position.x,
+                    y: this.canvas.height * data[menu][element].position.y,
+                  },
+                  this.canvas.width * data[menu][element].size,
+                  data[menu][element].color
+                );
+                break;
+              case "Button":
+                this.screens[menu][element] = new Button(
+                  data[menu][element].pathUp,
+                  data[menu][element].pathDown,
+                  data[menu][element].text,
+                  {
+                    x: this.canvas.width * data[menu][element].position.x,
+                    y: this.canvas.height * data[menu][element].position.y,
+                  },
+                  {
+                    x: this.canvas.width * data[menu][element].size.x,
+                    y: this.canvas.height * data[menu][element].size.y,
+                  }
+                );
+                break;
+              case "ChoiceBox":
+                this.screens[menu][element] = new ChoiceBox(
+                  data[menu][element].pathOpen,
+                  data[menu][element].pathClosed,
+                  data[menu][element].options,
+                  {
+                    backSignOpen: {
+                      x: this.canvas.width * data[menu][element].position.backSignOpen.x,
+                      y: this.canvas.height * data[menu][element].position.backSignOpen.y,
+                    },
+                    backSignClosed: {
+                      x: this.canvas.width * data[menu][element].position.backSignClosed.x,
+                      y: this.canvas.height * data[menu][element].position.backSignClosed.y,
+                    },
+                    firstOption: {
+                      x: this.canvas.width * data[menu][element].position.firstOption.x,
+                      y: this.canvas.height * data[menu][element].position.firstOption.y,
+                    },
+                    otherOptions: [
+                      {
+                        x: this.canvas.width * data[menu][element].position.secondOptions.x,
+                        y: this.canvas.height * data[menu][element].position.secondOptions.y,
+                      },
+                      {
+                        x: this.canvas.width * data[menu][element].position.thirdOptions.x,
+                        y: this.canvas.height * data[menu][element].position.thirdOptions.y,
+                      },
+                    ],
+                  },
+                  {
+                    backSignOpen: {
+                      x: this.canvas.width * data[menu][element].size.backSignOpen.x,
+                      y: this.canvas.height * data[menu][element].size.backSignOpen.y,
+                    },
+                    backSignClosed: {
+                      x: this.canvas.width * data[menu][element].size.backSignClosed.x,
+                      y: this.canvas.height * data[menu][element].size.backSignClosed.y,
+                    },
+                    text: this.canvas.width * data[menu][element].size.text,
+                  },
+                  data[menu][element].color
+                );
 
-    this.screens.Game.slingshot = new Slingshot(
-      {x: this.canvas.width * 0.220, y: this.canvas.height * 0.525},
-      {x: this.canvas.width * 0.089, y: this.canvas.height * 0.259},
-      this.canvas.width * 0.15);
+                this.screens[menu][element].alwaysOpen = true;
+                break;
+              case "Slider":
+                this.screens[menu][element] = new Slider(
+                  data[menu][element].pathBar,
+                  data[menu][element].pathPin,
+                  {
+                    x: this.canvas.width * data[menu][element].position.x,
+                    y: this.canvas.height * data[menu][element].position.y,
+                  },
+                  {
+                    x: this.canvas.width * data[menu][element].size.x,
+                    y: this.canvas.height * data[menu][element].size.y,
+                  },
+                  data[menu][element].value
+                );
+                break;
+              case "Switch":
+                this.screens[menu][element] = new Switch(
+                  data[menu][element].pathOn,
+                  data[menu][element].pathOff,
+                  {
+                    x: this.canvas.width * data[menu][element].position.x,
+                    y: this.canvas.height * data[menu][element].position.y,
+                  },
+                  {
+                    x: this.canvas.width * data[menu][element].size.x,
+                    y: this.canvas.height * data[menu][element].size.y,
+                  },
+                  data[menu][element].value
+                );
+                break;
+
+              case "Player":
+                this.screens[menu][element] = new Player(
+                  data[menu][element].path,
+                  {
+                    x: this.canvas.width * data[menu][element].position.x,
+                    y: this.canvas.height * data[menu][element].position.y,
+                  },
+                  {
+                    x: this.canvas.width * data[menu][element].size.x,
+                    y: this.canvas.height * data[menu][element].size.y,
+                  },
+                );
+                break;
+              
+              case "Slingshot":
+                this.screens[menu][element] = new Slingshot(
+                  data[menu][element].pathPool,
+                  data[menu][element].pathNet,
+                  {
+                    x: this.canvas.width * data[menu][element].position.x,
+                    y: this.canvas.height * data[menu][element].position.y,
+                  },
+                  {
+                    x: this.canvas.width * data[menu][element].size.x,
+                    y: this.canvas.height * data[menu][element].size.y,
+                  },
+                  data[menu][element].range * this.canvas.width,
+                );
+                break;
+            }
+          }
+        }
+
+        this.#atLoaded();
+        this.contentLoaded = true;
+      })
+      .catch((error) => {
+        console.error("There was a problem fetching the data:", error);
+      });
   }
 
   #arrangeLevelPrevieuws() {
@@ -423,12 +449,6 @@ class Main {
       this.screens.LevelSelector["arrowsButtonLeft"] = this.screens.NotVisable["arrowsButtonLeft"];
       this.screens.LevelSelector["arrowsButtonRight"] = this.screens.NotVisable["arrowsButtonRight"];
     }
-
-    // this.levelPrevieuwCenter = 2; min = 0; max = 4;
-
-    // this.levelPrevieuw; max = 2;
-
-    // console.log(Object.keys(this.sprites.LevelSelector).length);
 
     this.screens.LevelSelector;
 

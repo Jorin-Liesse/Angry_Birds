@@ -1,7 +1,7 @@
 import { Line, Circle, Sprite } from "./UI.js";
 
 export class Slingshot {
-  constructor(position, size, range) {
+  constructor(pathPool, pathNet, position, size, range) {
     this.canvas = document.getElementById("mainCanvas");
 
     this.GRAVITY = 0.01 * this.canvas.width;
@@ -25,12 +25,12 @@ export class Slingshot {
     this.previousMouseButtonsPressed = false;
 
     this.SlingshotPool = new Sprite(
-      "assets/Game/SlingshotPool.png",
+      pathPool,
       this.position,
       this.size
     );
     this.SlingshotNet = new Sprite(
-      "assets/Game/SlingshotNet.png",
+      pathNet,
       this.positionNet,
       this.sizeNet
     );
