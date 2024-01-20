@@ -158,6 +158,12 @@ export class Button {
     this.buttonTextUp = new Text(text, position, size.x / 4, "#c6ac9f");
     this.buttonTextDown = new Text(text, position, size.x / 4.5, "#c6ac9f");
 
+    this.downSound = new Audio('assets/audio/UI/clickButton.mp3');
+    this.upSound = new Audio('assets/audio/UI/clickButton.mp3');
+
+    this.downSound.volume = 1;
+    this.upSound.volume = 1;
+
     this.buttonTextUp.setIsButton();
     this.buttonTextDown.setIsButton();
 
@@ -174,6 +180,7 @@ export class Button {
     this.size = size;
 
     this.status = "up";
+    this.click = false;
 
     this.previousMouse = false;
     this.currentMouse = false;
@@ -181,6 +188,8 @@ export class Button {
   }
 
   update(dt, inputs) {
+    this.currentMouse = inputs.mouseButtonsPressed[0];
+
     if (
       inputs.mousePosition.x > this.position.x &&
       inputs.mousePosition.x < this.position.x + this.size.x &&
@@ -193,7 +202,23 @@ export class Button {
       this.status = "up";
     }
 
-    this.currentMouse = inputs.mouseButtonsPressed[0];
+    if (this.previousstatus === "up" && this.status === "down") {
+      this.downSound.play();
+    }
+
+    if (this.currentMouse && !this.previousMouse && this.previousstatus === "down" && this.click === true){
+      this.upSound.play();
+    }
+
+    if (!this.currentMouse && this.previousMouse && this.previousstatus === "down") {
+      this.click = true;
+      this.downSound.play();
+    } else {
+      this.click = false;
+    }
+
+    this.previousstatus = this.status;
+    this.previousMouse = this.currentMouse;
   }
 
   draw() {
@@ -203,18 +228,6 @@ export class Button {
     } else {
       this.buttonSpriteDown.draw();
       this.buttonTextDown.draw();
-    }
-  }
-
-  clicked() {
-    if (!this.currentMouse && this.previousMouse && this.previousstatus === "down") {
-      this.previousMouse = this.currentMouse;
-      this.previousstatus = this.status;
-      return true;
-    } else {
-      this.previousMouse = this.currentMouse;
-      this.previousstatus = this.status;
-      return false;
     }
   }
 
