@@ -304,19 +304,16 @@ class Main {
 
   #events() {
     this.#inputs.keysPressed = {};
-    this.#inputs.mouseButtonsPressed = {};
-    this.#inputs.mousePosition = {};
-
     for (let i = 0; i <= 255; i++) {
       this.#inputs.keysPressed[i] = false;
     }
 
+    this.#inputs.mouseButtonsPressed = {};
     this.#inputs.mouseButtonsPressed[0] = false;
     this.#inputs.mouseButtonsPressed[1] = false;
     this.#inputs.mouseButtonsPressed[2] = false;
 
-    this.#inputs.mousePosition.x = 0;
-    this.#inputs.mousePosition.y = 0;
+    this.#inputs.mousePosition = { x: 0, y: 0 };
 
     document.addEventListener("keydown", (event) => {
       this.#inputs.keysPressed[event.keyCode] = true;
@@ -339,6 +336,27 @@ class Main {
         event.clientX - (window.innerWidth - this.canvas.width) / 2;
       this.#inputs.mousePosition.y =
         event.clientY - (window.innerHeight - this.canvas.height) / 2;
+    });
+
+    document.addEventListener("touchstart", (event) => {
+      this.#inputs.mouseButtonsPressed[0] = true;
+      const touch = event.touches[0];
+      this.#inputs.mousePosition = {
+        x: touch.clientX - (window.innerWidth - this.canvas.width) / 2,
+        y: touch.clientY - (window.innerHeight - this.canvas.height) / 2,
+      };
+    });
+  
+    document.addEventListener("touchmove", (event) => {
+      const touch = event.touches[0];
+      this.#inputs.mousePosition = {
+        x: touch.clientX - (window.innerWidth - this.canvas.width) / 2,
+        y: touch.clientY - (window.innerHeight - this.canvas.height) / 2,
+      };
+    });
+  
+    document.addEventListener("touchend", () => {
+      this.#inputs.mouseButtonsPressed[0] = false;
     });
 
     window.addEventListener("resize", function () {
