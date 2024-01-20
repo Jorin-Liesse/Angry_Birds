@@ -15,7 +15,6 @@ function goFullScreen() {
 
 // Call the function to go full screen
 document.addEventListener("click", () => {
-    screen.orientation.lock('landscape');
     goFullScreen();
   }, { once: true });
 

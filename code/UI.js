@@ -161,9 +161,6 @@ export class Button {
     this.downSound = new Audio('assets/audio/UI/buttonDown.mp3');
     this.upSound = new Audio('assets/audio/UI/buttonUp.mp3');
 
-    this.downSound.volume = 1;
-    this.upSound.volume = 1;
-
     this.buttonTextUp.setIsButton();
     this.buttonTextDown.setIsButton();
 
@@ -265,6 +262,8 @@ export class ChoiceBox {
       sizes.backSignClosed
     );
 
+    this.sound = new Audio('assets/audio/UI/buttonUp.mp3');
+
     this.options = options.map((option) => new Text(option, { x: 0, y: 0 }, sizes.text, color));
 
     this.alwaysOpen = false;
@@ -310,6 +309,7 @@ export class ChoiceBox {
 
         if (!this.currentMouse && this.previousMouse && optionBounds) {
           this.options = [this.options[i], ...this.options.filter((item) => item !== this.options[i])];
+          this.sound.play();
           this.arrangeText();
           this.status = "closed";
         }
@@ -343,6 +343,8 @@ export class ChoiceBox {
         y: option.position.y - option.height / 2,
       };
     });
+
+
   }
 }
 
@@ -354,6 +356,7 @@ export class Slider {
     this.position = position;
     this.size = size;
     this.status = "passive";
+    this.previousStatus = "passive";
     this.startPercentage = startPercentage;
     this.previousMouse = false;
     this.isLoaded = false;
@@ -361,6 +364,8 @@ export class Slider {
 
     this.sliderSpriteBar = new Sprite(pathBar, position, size);
     this.sliderSpritePin = new Sprite(pathPin, { x: 0, y: 0 }, size);
+
+    this.sound = new Audio('assets/audio/UI/buttonUp.mp3');
   }
 
   update(dt, inputs) {
@@ -373,6 +378,22 @@ export class Slider {
 
       this.previousMouse = inputs.mouseButtonsPressed[0];
     }
+
+    const pin = this.sliderSpritePin;
+    const mousePos = inputs.mousePosition;
+
+    if (
+      mousePos.x > pin.position.x &&
+      mousePos.x < pin.position.x + pin.size.x &&
+      mousePos.y > pin.position.y &&
+      mousePos.y < pin.position.y + pin.size.y &&
+      inputs.mouseButtonsPressed[0] &&
+      this.previousStatus === "passive"
+    ) {
+      this.sound.play();
+    }
+
+    this.previousStatus = this.status;
   }
 
   draw() {
@@ -434,6 +455,8 @@ export class Switch {
     this.switchOn = new Sprite(pathOn, position, size);
     this.switchOff = new Sprite(pathOff, position, size);
 
+    this.sound = new Audio('assets/audio/UI/buttonUp.mp3');
+
     this.position = position;
     this.size = size;
     this.status = status;
@@ -449,6 +472,7 @@ export class Switch {
 
     if (isMouseOver && inputs.mouseButtonsPressed[0] && !this.previousMouse) {
       this.status = this.status === "off" ? "on" : "off";
+      this.sound.play();
     }
 
     this.previousMouse = inputs.mouseButtonsPressed[0];
