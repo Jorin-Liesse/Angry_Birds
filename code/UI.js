@@ -217,7 +217,6 @@ export class Button {
 
     if (this.currentMouse && !this.previousMouse && this.previousstatus === "up" && this.status === "down"){
       this.upSound.play();
-      console.log("up");
     }
 
     if (!this.currentMouse && this.previousMouse && this.previousstatus === "down") {
