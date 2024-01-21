@@ -1,12 +1,13 @@
 import { Line, Circle, Sprite } from "./UI.js";
+import { Settings } from "./settings.js";
 
 export class Slingshot {
   constructor(pathPool, pathNet, position, size, range) {
     this.canvas = document.getElementById("mainCanvas");
 
-    this.GRAVITY = 0.01 * this.canvas.width;
-    this.DISTANCEINCREMENT = 0.6 * this.canvas.width;
-    this.NETRETURNSPEED = 0.03 * this.canvas.width;
+    this.GRAVITY = Settings.GRAVITY * this.canvas.width;
+    this.DISTANCEINCREMENT = Settings.DISTANCEINCREMENT * this.canvas.width;
+    this.NETRETURNSPEED = Settings.NETRETURNSPEED * this.canvas.width;
 
     this.position = position;
     this.size = size;
@@ -17,10 +18,10 @@ export class Slingshot {
 
     this.interacting = false;
     this.isShot = false;
+    this.isReleased = false;
 
     this.lenght = 0;
     this.force = { x: 0, y: 0 };
-    this.shotPosition = { x: 0, y: 0 };
 
     this.previousMouseButtonsPressed = false;
 
@@ -71,18 +72,28 @@ export class Slingshot {
       this.interacting = true;
     }
 
-    if (!inputs.mouseButtonsPressed[0]) {
-      this.interacting = false;
-    }
-
     if (this.isShot) {
       this.interacting = false;
       this.isShot = false;
       this.timer = 0;
     }
 
-    if (this.previousMouseButtonsPressed && !inputs.mouseButtonsPressed[0]) {
+    if (this.previousMouseButtonsPressed && !inputs.mouseButtonsPressed[0] && this.interacting) {
+      this.isReleased = true;
+    }
+
+    const dx = this.position.x - this.positionNet.x;
+    const dy = this.position.y - this.positionNet.y;
+
+    const lenght = Math.sqrt(dx * dx + dy * dy);
+
+    if (this.isReleased && lenght < 20000 / this.canvas.width) {
+      this.isReleased = false;
       this.isShot = true;
+    }
+
+    if (!inputs.mouseButtonsPressed[0]) {
+      this.interacting = false;
     }
 
     if (this.interacting) {
@@ -113,17 +124,15 @@ export class Slingshot {
         y: this.lenght * Math.sin(angle),
       };
 
-      this.shotPosition = {x: this.positionNet.x, y: this.positionNet.y};
-
       let i = 0;
       while (true) {
         const x = (
-          this.positionNet.x +
+          this.position.x +
           this.sizeNet.x / 2 +
           (this.force.x / this.canvas.width) * i * this.DISTANCEINCREMENT
         );
         const y = (
-          this.positionNet.y +
+          this.position.y +
           this.sizeNet.y / 2 +
           (this.force.y / this.canvas.height) * i * this.DISTANCEINCREMENT +
           0.5 * this.GRAVITY * Math.pow(i * this.DISTANCEINCREMENT / this.canvas.height, 2)

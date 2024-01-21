@@ -1,6 +1,7 @@
 import { Line, Circle, Sprite, Text, Button, ChoiceBox, Slider, Switch } from "./UI.js";
 import { Slingshot } from "./slingshot.js";
 import { Player } from "./player.js";
+import { Ground } from "./ground.js";
 
 class Main {
   #timeLastFrame = 0;
@@ -48,8 +49,6 @@ class Main {
     this.currentInput = JSON.parse(JSON.stringify(this.#inputs));
 
     if (!this.contentLoaded) return;
-
-    this.screens.Game.player.slingshot = this.screens.Game.slingshot;
 
     switch (this.activeMenu) {
       case "MainMenu":
@@ -111,13 +110,21 @@ class Main {
         if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "InGameMenu";
         if (this.screens.Game.pauseButton.clicked()) this.activeMenu = "InGameMenu";
         if (this.screens.Game.inventoryButton.clicked()) this.activeMenu = "Inventory";
+
+        this.screens.Game.player.slingshot = this.screens.Game.slingshot;
+        this.screens.Game.player.ground = this.screens.Game.ground;
+
+        this.#collisions();
         break;
 
       case "InGameMenu":
         if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "Game";
 
         if (this.screens.InGameMenu.resumeButton.clicked()) this.activeMenu = "Game";
-        if (this.screens.InGameMenu.restartButton.clicked()) this.activeMenu = "Game";
+        if (this.screens.InGameMenu.restartButton.clicked()) {
+          this.activeMenu = "Game";
+          this.#loadUI();
+        }
         if (this.screens.InGameMenu.exitButton.clicked()) this.activeMenu = "MainMenu";
         break;
 
@@ -253,6 +260,7 @@ class Main {
         return response.json();
       })
       .then((data) => {
+        this.screens = {};
         for (const menu in data) {
           this.screens[menu] = {};
           for (const element in data[menu]) {
@@ -401,6 +409,19 @@ class Main {
                   data[menu][element].range * this.canvas.width,
                 );
                 break;
+
+              case "Ground":
+                this.screens[menu][element] = new Ground(
+                  {
+                    x: this.canvas.width * data[menu][element].position.x,
+                    y: this.canvas.height * data[menu][element].position.y,
+                  },
+                  {
+                    x: this.canvas.width * data[menu][element].size.x,
+                    y: this.canvas.height * data[menu][element].size.y,
+                  }
+                );
+                break;
             }
           }
         }
@@ -456,6 +477,8 @@ class Main {
     this.screens.LevelsButtonSmall;
     this.screens.NotVisable;
   }
+
+  #collisions() {}
 }
 
 document.addEventListener("DOMContentLoaded", () => {
