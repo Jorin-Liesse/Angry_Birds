@@ -441,20 +441,6 @@
     }
   },
   "Level1": {
-    "player": {
-      "type": "Player",
-      "path": "assets/graphics/Game/BirdBrown.png",
-      "position": { "x": 0.177, "y": 0.107 },
-      "size": { "x": 0.078, "y": 0.1315 }
-    },
-    "slingshot": {
-      "type": "Slingshot",
-      "pathPool": "assets/graphics/Game/SlingshotPool.png",
-      "pathNet": "assets/graphics/Game/SlingshotNet.png",
-      "position": { "x": 0.220, "y": 0.525 },
-      "size": { "x": 0.089, "y": 0.259 },
-      "range": 0.15
-    },
     "ground": {
       "type": "Ground",
       "position": { "x": 0.064, "y": 0.770 },
@@ -471,9 +457,7 @@
       "path": "assets/graphics/Game/openBox.png",
       "position": { "x": 0.781, "y": 0.674 },
       "size": { "x": 0.054, "y": 0.096 }
-    }
-  },
-  "Level2": {
+    },
     "player": {
       "type": "Player",
       "path": "assets/graphics/Game/BirdBrown.png",
@@ -487,7 +471,9 @@
       "position": { "x": 0.220, "y": 0.525 },
       "size": { "x": 0.089, "y": 0.259 },
       "range": 0.15
-    },
+    }
+  },
+  "Level2": {
     "ground": {
       "type": "Ground",
       "position": { "x": 0.064, "y": 0.770 },
@@ -510,9 +496,7 @@
       "path": "assets/graphics/Game/closeBox.png",
       "position": { "x": 0.754, "y": 0.577 },
       "size": { "x": 0.054, "y": 0.096 }
-    }
-  },
-  "Level3": {
+    },
     "player": {
       "type": "Player",
       "path": "assets/graphics/Game/BirdBrown.png",
@@ -526,7 +510,9 @@
       "position": { "x": 0.220, "y": 0.525 },
       "size": { "x": 0.089, "y": 0.259 },
       "range": 0.15
-    },
+    }
+  },
+  "Level3": {
     "ground": {
       "type": "Ground",
       "position": { "x": 0.064, "y": 0.770 },
@@ -555,9 +541,7 @@
       "path": "assets/graphics/Game/openBox.png",
       "position": { "x": 0.781, "y": 0.577 },
       "size": { "x": 0.054, "y": 0.096 }
-    }
-  },
-  "Level4": {
+    },
     "player": {
       "type": "Player",
       "path": "assets/graphics/Game/BirdBrown.png",
@@ -571,7 +555,9 @@
       "position": { "x": 0.220, "y": 0.525 },
       "size": { "x": 0.089, "y": 0.259 },
       "range": 0.15
-    },
+    }
+  },
+  "Level4": {
     "ground": {
       "type": "Ground",
       "position": { "x": 0.064, "y": 0.770 },
@@ -606,9 +592,7 @@
       "path": "assets/graphics/Game/openBox.png",
       "position": { "x": 0.754, "y": 0.480 },
       "size": { "x": 0.054, "y": 0.096 }
-    }
-  },
-  "Level5": {
+    },
     "player": {
       "type": "Player",
       "path": "assets/graphics/Game/BirdBrown.png",
@@ -622,7 +606,9 @@
       "position": { "x": 0.220, "y": 0.525 },
       "size": { "x": 0.089, "y": 0.259 },
       "range": 0.15
-    },
+    }
+  },
+  "Level5": {
     "ground": {
       "type": "Ground",
       "position": { "x": 0.064, "y": 0.770 },
@@ -663,6 +649,20 @@
       "path": "assets/graphics/Game/closeBox.png",
       "position": { "x": 0.781, "y": 0.480 },
       "size": { "x": 0.054, "y": 0.096 }
+    },
+    "player": {
+      "type": "Player",
+      "path": "assets/graphics/Game/BirdBrown.png",
+      "position": { "x": 0.177, "y": 0.107 },
+      "size": { "x": 0.078, "y": 0.1315 }
+    },
+    "slingshot": {
+      "type": "Slingshot",
+      "pathPool": "assets/graphics/Game/SlingshotPool.png",
+      "pathNet": "assets/graphics/Game/SlingshotNet.png",
+      "position": { "x": 0.220, "y": 0.525 },
+      "size": { "x": 0.089, "y": 0.259 },
+      "range": 0.15
     }
   },
   "InGameMenu": {
