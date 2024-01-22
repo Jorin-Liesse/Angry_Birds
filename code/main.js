@@ -2,6 +2,7 @@ import { Line, Circle, Sprite, Text, Button, ChoiceBox, Slider, Switch } from ".
 import { Slingshot } from "./slingshot.js";
 import { Player } from "./player.js";
 import { Ground } from "./ground.js";
+import { Obstacle } from "./obstacle.js";
 
 class Main {
   #timeLastFrame = 0;
@@ -114,7 +115,6 @@ class Main {
         if (this.screens.Game.pauseButton.clicked()) this.activeMenu = "InGameMenu";
         if (this.screens.Game.inventoryButton.clicked()) this.activeMenu = "Inventory";
         break;
-
       case "InGameMenu":
         if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "Game";
 
@@ -125,7 +125,6 @@ class Main {
         }
         if (this.screens.InGameMenu.exitButton.clicked()) this.activeMenu = "MainMenu";
         break;
-
       case "Inventory":
         if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "Game";
 
@@ -291,6 +290,7 @@ class Main {
                   }
                 );
                 break;
+              
               case "Text":
                 this.screens[menu][element] = new Text(
                   data[menu][element].text,
@@ -302,6 +302,7 @@ class Main {
                   data[menu][element].color
                 );
                 break;
+              
               case "Button":
                 this.screens[menu][element] = new Button(
                   data[menu][element].pathUp,
@@ -317,6 +318,7 @@ class Main {
                   }
                 );
                 break;
+              
               case "ChoiceBox":
                 this.screens[menu][element] = new ChoiceBox(
                   data[menu][element].pathOpen,
@@ -362,6 +364,7 @@ class Main {
 
                 this.screens[menu][element].alwaysOpen = true;
                 break;
+              
               case "Slider":
                 this.screens[menu][element] = new Slider(
                   data[menu][element].pathBar,
@@ -377,6 +380,7 @@ class Main {
                   data[menu][element].value
                 );
                 break;
+              
               case "Switch":
                 this.screens[menu][element] = new Switch(
                   data[menu][element].pathOn,
@@ -425,6 +429,20 @@ class Main {
 
               case "Ground":
                 this.screens[menu][element] = new Ground(
+                  {
+                    x: this.canvas.width * data[menu][element].position.x,
+                    y: this.canvas.height * data[menu][element].position.y,
+                  },
+                  {
+                    x: this.canvas.width * data[menu][element].size.x,
+                    y: this.canvas.height * data[menu][element].size.y,
+                  }
+                );
+                break;
+
+              case "Obstacle":
+                this.screens[menu][element] = new Obstacle(
+                  data[menu][element].path,
                   {
                     x: this.canvas.width * data[menu][element].position.x,
                     y: this.canvas.height * data[menu][element].position.y,
