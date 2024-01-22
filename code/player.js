@@ -20,7 +20,7 @@ export class Player {
 
     this.isShot = false;
 
-    this.hitTolerance = 0.9;
+    this.hitTolerance = 0.7;
 
     this.sprite = new Sprite(
       path,

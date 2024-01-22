@@ -21,6 +21,7 @@ class Main {
 
     this.activeMenu = "MainMenu"; // MainMenu, OptionsMenu, CreditsMenu, Game, InGameMenu, LevelSelector,
     this.activeOptionsMenu = "GraphicsMenu"; // GraphicsMenu, SoundMenu, ControllsMenu,
+    this.activeLevel = "";
 
     this.contentLoaded = false;
 
@@ -99,8 +100,10 @@ class Main {
 
         for (let level in this.screens.LevelSelector) {
           if (level.includes("level")) {
+
             if (this.screens.LevelSelector[level].clicked()) {
               this.activeMenu = "Game";
+              this.activeLevel = "Level" + level.match(/\d+/);
             }
           }
         }
@@ -110,11 +113,6 @@ class Main {
         if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "InGameMenu";
         if (this.screens.Game.pauseButton.clicked()) this.activeMenu = "InGameMenu";
         if (this.screens.Game.inventoryButton.clicked()) this.activeMenu = "Inventory";
-
-        this.screens.Game.player.slingshot = this.screens.Game.slingshot;
-        this.screens.Game.player.ground = this.screens.Game.ground;
-
-        this.#collisions();
         break;
 
       case "InGameMenu":
@@ -145,6 +143,15 @@ class Main {
       }
     }
 
+    if (this.activeMenu == "Game") {
+      this.screens[this.activeLevel].player.slingshot = this.screens[this.activeLevel].slingshot;
+      this.screens[this.activeLevel].player.ground = this.screens[this.activeLevel].ground;
+
+      for (let sprite in this.screens[this.activeLevel]) {
+        this.screens[this.activeLevel][sprite].update(this.dt, this.#currentinput);
+      }
+    }
+
     this.#previousinput = JSON.parse(JSON.stringify(this.#currentinput));
   }
 
@@ -160,6 +167,12 @@ class Main {
     if (this.activeMenu == "OptionsMenu") {
       for (let sprite in this.screens[this.activeOptionsMenu]) {
         this.screens[this.activeOptionsMenu][sprite].draw();
+      }
+    }
+
+    if (this.activeMenu == "Game") {
+      for (let sprite in this.screens[this.activeLevel]) {
+        this.screens[this.activeLevel][sprite].draw();
       }
     }
   }
@@ -477,8 +490,6 @@ class Main {
     this.screens.LevelsButtonSmall;
     this.screens.NotVisable;
   }
-
-  #collisions() {}
 }
 
 document.addEventListener("DOMContentLoaded", () => {
