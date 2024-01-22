@@ -265,7 +265,7 @@ class Main {
   }
 
   #loadUI() {
-    fetch("menu.json")
+    fetch("assets/layout/layout.json")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
