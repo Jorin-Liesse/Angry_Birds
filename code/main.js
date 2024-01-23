@@ -4,6 +4,8 @@ import { Player } from "./player.js";
 import { Ground } from "./ground.js";
 import { Obstacle } from "./obstacle.js";
 
+import { rectRectCollision } from "./collision.js";
+
 class Main {
   #timeLastFrame = 0;
   #timeThisFrame = 0;
@@ -34,6 +36,14 @@ class Main {
     soundtrack.volume = 0.5;
     soundtrack.loop = true;
 
+    this.breakSound = new Audio('assets/audio/UI/woodBreak.mp3');
+
+    this.isVisible = true;
+
+    document.addEventListener("visibilitychange", () => {
+      this.isVisible = document.visibilityState === "visible";
+    });
+
     document.addEventListener("click", () => {
       soundtrack.play();
     }, { once: true });
@@ -48,6 +58,8 @@ class Main {
 
   #update() {
     this.#deltaTime();
+
+    if (!this.isVisible) return;
     this.currentInput = JSON.parse(JSON.stringify(this.#inputs));
 
     if (!this.contentLoaded) return;
@@ -145,6 +157,27 @@ class Main {
     if (this.activeMenu == "Game") {
       this.screens[this.activeLevel].player.slingshot = this.screens[this.activeLevel].slingshot;
       this.screens[this.activeLevel].player.ground = this.screens[this.activeLevel].ground;
+
+      const boxes = Object.entries(this.screens[this.activeLevel])
+        .filter(([sprite]) => sprite.includes("box"))
+        .map(([, box]) => box);
+
+
+      for (let sprite in this.screens[this.activeLevel]) {
+        if (sprite.includes("box")) {
+          const currentBox = this.screens[this.activeLevel][sprite];
+          const otherBoxes = boxes.filter(box => box !== currentBox);
+
+          this.screens[this.activeLevel][sprite].player = this.screens[this.activeLevel].player;
+          this.screens[this.activeLevel][sprite].ground = this.screens[this.activeLevel].ground;
+          this.screens[this.activeLevel][sprite].boxes = otherBoxes;
+
+          if (rectRectCollision(this.screens[this.activeLevel][sprite], this.screens[this.activeLevel].player)) {
+            delete this.screens[this.activeLevel][sprite];
+            this.breakSound.play();
+          }
+        }
+      }
 
       for (let sprite in this.screens[this.activeLevel]) {
         this.screens[this.activeLevel][sprite].update(this.dt, this.#currentinput);
