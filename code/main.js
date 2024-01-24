@@ -19,6 +19,7 @@ class Main {
     this.ctx = this.canvas.getContext("2d");
 
     this.adjustAspectRatio();
+    this.#loadUI();
 
     this.#events();
 
@@ -42,6 +43,9 @@ class Main {
 
     document.addEventListener("visibilitychange", () => {
       this.isVisible = document.visibilityState === "visible";
+      this.#timeThisFrame = performance.now();
+      this.#timeLastFrame = this.#timeThisFrame;
+      this.dt = 0;
     });
 
     document.addEventListener("click", () => {
@@ -224,7 +228,17 @@ class Main {
       this.canvas.height = window.innerHeight;
     }
 
-    this.#loadUI();
+    
+  }
+
+  resizeAll() {
+    for (let screen in this.screens) {
+      for (let sprite in this.screens[screen]) {
+        this.screens[screen][sprite].resize(this.canvas.width, this.canvas.height);
+      }
+    }
+
+    this.#atLoaded()
   }
 
   #events() {
@@ -286,6 +300,7 @@ class Main {
 
     window.addEventListener("resize", () => {
       this.adjustAspectRatio();
+      this.resizeAll();
     });
 
     this.#currentinput = this.#inputs;
@@ -383,6 +398,30 @@ class Main {
                   },
                   {
                     backSignOpen: {
+                      x: data[menu][element].position.backSignOpen.x,
+                      y: data[menu][element].position.backSignOpen.y,
+                    },
+                    backSignClosed: {
+                      x: data[menu][element].position.backSignClosed.x,
+                      y: data[menu][element].position.backSignClosed.y,
+                    },
+                    firstOption: {
+                      x: data[menu][element].position.firstOption.x,
+                      y: data[menu][element].position.firstOption.y,
+                    },
+                    otherOptions: [
+                      {
+                        x: data[menu][element].position.secondOptions.x,
+                        y:  data[menu][element].position.secondOptions.y,
+                      },
+                      {
+                        x: data[menu][element].position.thirdOptions.x,
+                        y: data[menu][element].position.thirdOptions.y,
+                      },
+                    ],
+                  },
+                  {
+                    backSignOpen: {
                       x: this.canvas.width * data[menu][element].size.backSignOpen.x,
                       y: this.canvas.height * data[menu][element].size.backSignOpen.y,
                     },
@@ -391,6 +430,17 @@ class Main {
                       y: this.canvas.height * data[menu][element].size.backSignClosed.y,
                     },
                     text: this.canvas.width * data[menu][element].size.text,
+                  },
+                  {
+                    backSignOpen: {
+                      x: data[menu][element].size.backSignOpen.x,
+                      y: data[menu][element].size.backSignOpen.y,
+                    },
+                    backSignClosed: {
+                      x: data[menu][element].size.backSignClosed.x,
+                      y: data[menu][element].size.backSignClosed.y,
+                    },
+                    text: data[menu][element].size.text,
                   },
                   data[menu][element].color
                 );

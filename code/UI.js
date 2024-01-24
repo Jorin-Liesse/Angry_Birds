@@ -2,6 +2,12 @@ export class Line {
   constructor(startPosition, endPosition, width, color) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
+
+    this.relativeStartPosition = { x: startPosition.x / this.canvas.width, y: startPosition.y / this.canvas.height };
+    this.relativeEndPosition = { x: endPosition.x / this.canvas.width, y: endPosition.y / this.canvas.height };
+
+    this.relativeWidth = width / this.canvas.width;
+
     this.startPosition = startPosition;
     this.endPosition = endPosition;
     this.width = width;
@@ -24,12 +30,29 @@ export class Line {
 
     ctx.restore();
   }
+
+  resize() {
+    this.startPosition = {
+      x: this.canvas.width * this.relativeStartPosition.x,
+      y: this.canvas.height * this.relativeStartPosition.y,
+    };
+
+    this.endPosition = {
+      x: this.canvas.width * this.relativeEndPosition.x,
+      y: this.canvas.height * this.relativeEndPosition.y,
+    };
+
+    this.width = this.canvas.width * this.relativeWidth;
+  }
 }
 
 export class Circle {
   constructor(position, radius, color) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
+
+    this.relativePosition = { x: position.x / this.canvas.width, y: position.y / this.canvas.height };
+    this.relativeRadius = radius / this.canvas.width;
 
     this.position = position;
     this.radius = radius;
@@ -48,12 +71,24 @@ export class Circle {
 
     this.ctx.restore();
   }
+
+  resize() {
+    this.position = {
+      x: this.canvas.width * this.relativePosition.x,
+      y: this.canvas.height * this.relativePosition.y,
+    };
+
+    this.radius = this.canvas.width * this.relativeRadius;
+  }
 }
 
 export class Sprite {
   constructor(path, position, size) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
+
+    this.relativePosition = { x: position.x / this.canvas.width, y: position.y / this.canvas.height };
+    this.relativeSize = { x: size.x / this.canvas.width, y: size.y / this.canvas.height };
 
     this.position = position;
     this.size = size;
@@ -104,12 +139,27 @@ export class Sprite {
 
     this.ctx.restore();
   }
+
+  resize() {
+    this.position = {
+      x: this.canvas.width * this.relativePosition.x,
+      y: this.canvas.height * this.relativePosition.y,
+    };
+
+    this.size = {
+      x: this.canvas.width * this.relativeSize.x,
+      y: this.canvas.height * this.relativeSize.y,
+    };
+  }
 }
 
 export class Text {
   constructor(text, position, size, color) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
+
+    this.relativePosition = { x: position.x / this.canvas.width, y: position.y / this.canvas.height };
+    this.relativeSize = size / this.canvas.width;
 
     this.text = text;
     this.position = position;
@@ -145,12 +195,29 @@ export class Text {
   setIsButton() {
     this.isButton = true;
   }
+
+  resize() {
+    this.position = {
+      x: this.canvas.width * this.relativePosition.x,
+      y: this.canvas.height * this.relativePosition.y,
+    };
+
+    this.size = this.relativeSize * this.canvas.width;
+
+    this.setupText();
+  }
 }
 
 export class Button {
   constructor(pathUp, pathDown, text, position, size) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
+
+    this.relativePosition = { x: position.x / this.canvas.width, y: position.y / this.canvas.height };
+    this.relativeSize = { x: size.x / this.canvas.width, y: size.y / this.canvas.height };
+
+    this.position = position;
+    this.size = size;
 
     this.buttonSpriteUp = new Sprite(pathUp, position, size);
     this.buttonSpriteDown = new Sprite(pathDown, position, size);
@@ -164,17 +231,7 @@ export class Button {
     this.buttonTextUp.setIsButton();
     this.buttonTextDown.setIsButton();
 
-    this.buttonTextUp.position = {
-      x: position.x + size.x / 2,
-      y: position.y + size.y / 2 - this.buttonTextUp.height / 2,
-    };
-    this.buttonTextDown.position = {
-      x: position.x + size.x / 2,
-      y: position.y + size.y / 2 + this.canvas.height * 0.01 - this.buttonTextUp.height / 2,
-    };
-
-    this.position = position;
-    this.size = size;
+    this.setPositions();
 
     this.status = "up";
 
@@ -241,12 +298,47 @@ export class Button {
       y: position.y + this.size.y / 2 + this.canvas.height * 0.01 - this.buttonTextUp.height / 2,
     };
   }
+
+    
+  setPositions() {
+    this.buttonTextUp.position = {
+      x: this.position.x + this.size.x / 2,
+      y: this.position.y + this.size.y / 2 - this.buttonTextUp.height / 2,
+    };
+    this.buttonTextDown.position = {
+      x: this.position.x + this.size.x / 2,
+      y: this.position.y + this.size.y / 2 + this.canvas.height * 0.01 - this.buttonTextUp.height / 2,
+    };
+  }
+
+  resize() {
+    this.position = {
+      x: this.canvas.width * this.relativePosition.x,
+      y: this.canvas.height * this.relativePosition.y,
+    };
+
+    this.size = {
+      x: this.canvas.width * this.relativeSize.x,
+      y: this.canvas.height * this.relativeSize.y,
+    };
+
+    this.buttonSpriteUp.resize();
+    this.buttonSpriteDown.resize();
+
+    this.buttonTextUp.resize();
+    this.buttonTextDown.resize();
+
+    this.changePosition(this.position);
+  }
 }
 
 export class ChoiceBox {
-  constructor(pathOpen, pathClosed, options, positions, sizes, color) {
+  constructor(pathOpen, pathClosed, options, positions, relativePositions, sizes, relativeSizes, color) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
+
+    this.relativePositions = relativePositions
+    this.relativeSizes = relativeSizes
 
     this.positions = positions;
     this.sizes = sizes;
@@ -307,6 +399,8 @@ export class ChoiceBox {
           inputs.mousePosition.y > this.options[i].position.y &&
           inputs.mousePosition.y < this.options[i].position.y + this.options[i].height;
 
+        console.log();
+
         if (!this.currentMouse && this.previousMouse && optionBounds) {
           this.options = [this.options[i], ...this.options.filter((item) => item !== this.options[i])];
           this.sound.play();
@@ -335,8 +429,7 @@ export class ChoiceBox {
 
   arrangeText() {
     this.options.forEach((option, i) => {
-      option.position =
-        i === 0 ? this.positions.firstOption : this.positions.otherOptions[i - 1];
+      option.position = i === 0 ? this.positions.firstOption : this.positions.otherOptions[i - 1];
 
       option.position = {
         x: option.position.x - option.width / 2,
@@ -344,7 +437,53 @@ export class ChoiceBox {
       };
     });
 
+    console.log(this.relativePositions)
+  }
 
+  resize() {
+    this.positions = {
+      backSignOpen: {
+        x: this.canvas.width * this.relativePositions.backSignOpen.x,
+        y: this.canvas.height * this.relativePositions.backSignOpen.y,
+      },
+      backSignClosed: {
+        x: this.canvas.width * this.relativePositions.backSignClosed.x,
+        y: this.canvas.height * this.relativePositions.backSignClosed.y,
+      },
+      firstOption: {
+        x: this.canvas.width * this.relativePositions.firstOption.x,
+        y: this.canvas.height * this.relativePositions.firstOption.y,
+      },
+      otherOptions: [
+        {
+          x: this.canvas.width * this.relativePositions.otherOptions[0].x,
+          y: this.canvas.height * this.relativePositions.otherOptions[0].y,
+        },
+        {
+          x: this.canvas.width * this.relativePositions.otherOptions[1].x,
+          y: this.canvas.height * this.relativePositions.otherOptions[1].y,
+        },
+      ],
+    }
+
+    this.sizes = {
+      backSignOpen: {
+        x: this.canvas.width * this.relativeSizes.backSignOpen.x,
+        y: this.canvas.height * this.relativeSizes.backSignOpen.y,
+      },
+      backSignClosed: {
+        x: this.canvas.width * this.relativeSizes.backSignClosed.x,
+        y: this.canvas.height * this.relativeSizes.backSignClosed.y,
+      },
+      text: this.canvas.width * this.relativeSizes.text,
+    }
+
+    this.options.forEach((option) => option.resize());
+
+    this.choiceBoxSpriteOpen.resize();
+    this.choiceBoxSpriteClosed.resize();
+
+    this.arrangeText();
   }
 }
 
@@ -352,6 +491,9 @@ export class Slider {
   constructor(pathBar, pathPin, position, size, startPercentage) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
+
+    this.relativePosition = { x: position.x / this.canvas.width, y: position.y / this.canvas.height };
+    this.relativeSize = { x: size.x / this.canvas.width, y: size.y / this.canvas.height };
 
     this.position = position;
     this.size = size;
@@ -445,12 +587,32 @@ export class Slider {
       pin.position.x = Math.max(this.position.x, Math.min(mousePos.x - pin.size.x / 2, this.position.x + this.size.x - pin.size.x));
     }
   }
+
+  resize() {
+    this.position = {
+      x: this.canvas.width * this.relativePosition.x,
+      y: this.canvas.height * this.relativePosition.y,
+    };
+
+    this.size = {
+      x: this.canvas.width * this.relativeSize.x,
+      y: this.canvas.height * this.relativeSize.y,
+    };
+
+    this.sliderSpriteBar.resize();
+    this.sliderSpritePin.resize();
+
+    this.setSize = false;
+  }
 }
 
 export class Switch {
   constructor(pathOn, pathOff, position, size, status) {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
+
+    this.relativePosition = { x: position.x / this.canvas.width, y: position.y / this.canvas.height };
+    this.relativeSize = { x: size.x / this.canvas.width, y: size.y / this.canvas.height };
 
     this.switchOn = new Sprite(pathOn, position, size);
     this.switchOff = new Sprite(pathOff, position, size);
@@ -480,5 +642,20 @@ export class Switch {
 
   draw() {
     this.status === "on" ? this.switchOn.draw() : this.switchOff.draw();
+  }
+
+  resize() {
+    this.position = {
+      x: this.canvas.width * this.relativePosition.x,
+      y: this.canvas.height * this.relativePosition.y,
+    };
+
+    this.size = {
+      x: this.canvas.width * this.relativeSize.x,
+      y: this.canvas.height * this.relativeSize.y,
+    };
+
+    this.switchOn.resize();
+    this.switchOff.resize();
   }
 }

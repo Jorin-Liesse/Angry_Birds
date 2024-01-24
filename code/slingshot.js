@@ -5,6 +5,11 @@ export class Slingshot {
   constructor(pathPool, pathNet, position, size, range) {
     this.canvas = document.getElementById("mainCanvas");
 
+    this.relativePosition = { x: position.x / this.canvas.width, y: position.y / this.canvas.height };
+    this.relativeSize = { x: size.x / this.canvas.width, y: size.y / this.canvas.height };
+
+    this.relativeRange = range / this.canvas.width;
+
     this.GRAVITY = Settings.GRAVITY * this.canvas.width;
     this.DISTANCEINCREMENT = Settings.DISTANCEINCREMENT * this.canvas.width;
     this.NETRETURNSPEED = Settings.NETRETURNSPEED * this.canvas.width;
@@ -169,6 +174,8 @@ export class Slingshot {
       y: this.positionNet.y + this.sizeNet.y / 2,
     };
 
+    this.SlingshotNet.position = this.positionNet;
+
     this.previousMouseButtonsPressed = inputs.mouseButtonsPressed[0];
   }
 
@@ -182,5 +189,32 @@ export class Slingshot {
 
     this.SlingshotNet.draw();
     this.SlingshotPool.draw();
+  }
+
+  resize() {
+    this.GRAVITY = Settings.GRAVITY * this.canvas.width;
+    this.DISTANCEINCREMENT = Settings.DISTANCEINCREMENT * this.canvas.width;
+    this.NETRETURNSPEED = Settings.NETRETURNSPEED * this.canvas.width;
+
+    this.position = {
+      x: this.canvas.width * this.relativePosition.x,
+      y: this.canvas.height * this.relativePosition.y,
+    };
+
+    this.size = {
+      x: this.canvas.width * this.relativeSize.x,
+      y: this.canvas.height * this.relativeSize.y,
+    };
+
+    this.range = this.canvas.width * this.relativeRange;
+
+    this.positionNet = { x: this.position.x, y: this.position.y };
+    this.sizeNet = { x: this.size.x * 0.5, y: this.size.y * 0.5 };
+
+    this.SlingshotPool.resize();
+    this.SlingshotNet.resize();
+
+    this.elastic1.resize();
+    this.elastic2.resize();
   }
 }
