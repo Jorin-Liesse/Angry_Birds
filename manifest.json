@@ -1,0 +1,51 @@
+{
+  "name": "Angry Birds",
+  "short_name": "Angry Birds",
+  "start_url": "/Angry_Birds/",
+  "scope": "/Angry_Birds/",
+  "display": "fullscreen",
+  "theme_color": "#000",
+  "background_color": "#000",
+  "description": "Flappy Bird Clone is a recreation of the classic Flappy Bird game. It aims to provide an enjoyable and nostalgic gaming experience for players. The game features simple controls and addictive gameplay.",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "assets/graphics/icons/pwa/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/graphics/icons/pwa/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/graphics/icons/pwa/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/graphics/icons/pwa/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/graphics/gamePlayPC.gif",
+      "sizes": "600x338",
+      "type": "image/gif",
+      "form_factor": "wide"
+    },
+    {
+      "src": "assets/graphics/gamePlayMobile.gif",
+      "sizes": "418x746",
+      "type": "image/gif",
+      "form_factor": "narrow"
+    }
+  ]
+}
