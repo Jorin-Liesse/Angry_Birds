@@ -35,7 +35,7 @@ export class Settings {
 
   static gravity = 0.03;
 
-  static pathPlayer = "./assets/graphics/game/player.png";
+  static pathPlayer = "assets/graphics/game/player.png";
   static playerAnimationInfo = {rows: 1, columns: 1, startFrame: 0, endFrame: 0, frameRate: 1};
   static playerSize = {x: 0.0690, y: 0.1255};
   static playerJumpForce = -0.0007;
@@ -44,8 +44,8 @@ export class Settings {
   static playerRecenterForce = 0.00001;
 
   static distanceIncrement = 0.05;
-  static pathSlingshotNet = "./assets/graphics/game/slingshotNet.png";
-  static pathSlingshotpool = "./assets/graphics/game/slingshotPool.png";
+  static pathSlingshotNet = "assets/graphics/game/slingshotNet.png";
+  static pathSlingshotpool = "assets/graphics/game/slingshotPool.png";
   static slingshotPoleRange = 0.175;
   static returnNetSpeed = 0.01;
   static slingshotPosition = { x: 0.220, y: 0.525 };
