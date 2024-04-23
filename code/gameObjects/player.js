@@ -2,7 +2,7 @@ import { GameObject } from "../canvasUtilitys/gameObject.js";
 import { DeltaTime } from "../canvasUtilitys/deltaTime.js";
 import { rectRectCollision } from "../canvasUtilitys/collision.js";
 import { Settings } from "../settings.js";
-import { Slingshot } from "./slingShot.js";
+import { Slingshot } from "./slingshot.js";
 import { slope } from "../canvasUtilitys/xMath.js";
 
 export class Player extends GameObject {
