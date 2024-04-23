@@ -1,0 +1,14 @@
+{
+  "pauseButton": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/OptionButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/OptionButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.013, "y": 0.015 },
+    "size": { "x": 0.075, "y": 0.133 },
+    "text": "",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "angry_birds",
+  "version": "1.0.0",
+  "description": "",
+  "main": "code/index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon --exec electron .",
+    "preview": "cross-env NODE_ENV=production electron .",
+    "build-win": "electron-packager . Angry-Birds --overwrite --platform=win32 --arch=x64 --icon=./assets/graphics/icons/icon.ico --prune=true --out=build",
+    "build-mac": "electron-packager . Angry-Birds --overwrite --platform=darwin --arch=x64 --icon=./assets/graphics/icon.ico --prune=true --out=build",
+    "build-linux": "electron-packager . Angry-Birds --overwrite --platform=linux --arch=x64 --icon=./assets/graphics/icon.ico --prune=true --out=build"
+  },
+  "keywords": [],
+  "author": "Jorin Liesse",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "electron": "^29.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}

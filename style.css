@@ -24,3 +24,11 @@ html, body {
 body {
   overflow: hidden;
 }
+
+canvas {
+  position: absolute;
+}
+
+#mainCanvas {
+  display: none;
+}

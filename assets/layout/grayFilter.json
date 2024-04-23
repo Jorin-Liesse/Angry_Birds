@@ -1,0 +1,10 @@
+{
+  "grayFilter": {
+    "type": "Rectangle",
+    "position": { "x": 0.0, "y": 0.0 },
+    "size": { "x": 1, "y": 1 },
+    "width": 0,
+    "strokeColor": "transparent",
+    "fillColor": "rgba(0, 0, 0, 0.5)"
+  }
+}

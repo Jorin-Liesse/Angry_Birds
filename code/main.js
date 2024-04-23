@@ -1,599 +1,174 @@
-import { Line, Circle, Sprite, Text, Button, ChoiceBox, Slider, Switch } from "./UI.js";
-import { Slingshot } from "./slingshot.js";
-import { Player } from "./player.js";
-import { Ground } from "./ground.js";
-import { Obstacle } from "./obstacle.js";
+import { Shader, fetchShader } from "./canvasUtilitys/shader.js";
+import { InputManager } from "./canvasUtilitys/inputManager.js";
+import { AudioManager } from "./canvasUtilitys/audioManager.js";
+import { DeltaTime } from "./canvasUtilitys/deltaTime.js";
+import { AspectRatio } from "./canvasUtilitys/aspectRatio.js";
+import { setCanvasSize } from "./canvasUtilitys/canvasSize.js";
+import { PageStatus } from "./canvasUtilitys/pageStatus.js";
+import { GameObject } from "./canvasUtilitys/gameObject.js";
+import { Settings } from "./settings.js";
 
-import { rectRectCollision } from "./collision.js";
+import { Start } from "./screens/start.js";
+import { Options } from "./screens/options.js";
+import { Game } from "./screens/game.js";
+import { Background } from "./screens/background.js";
+import { Credits } from "./screens/credits.js";
+import { InGame } from "./screens/inGame.js";
+import { InGameMenu } from "./screens/inGameMenu.js";
+import { GameOver } from "./screens/gameOver.js";
+import { FPSCounter } from "./screens/FPSCounter.js";
+import { GrayFilter } from "./screens/grayFilter.js";
+import { LevelSelector } from "./screens/levelSelector.js";
 
-class Main {
-  #timeLastFrame = 0;
-  #timeThisFrame = 0;
+export class Main {
+  static save;
 
-  #inputs = {};
-  #currentinput = {};
-  #previousinput = {};
-
-  constructor() {
+  static async init() {
     this.canvas = document.getElementById("mainCanvas");
     this.ctx = this.canvas.getContext("2d");
 
-    this.adjustAspectRatio();
-    this.#loadUI();
+    this.loadLocalStorage();
 
-    this.#events();
+    const vertexShaderSource = await fetchShader('assets/shaders/CRT/vertexShader.glsl');
+    const fragmentShaderSource = await fetchShader('assets/shaders/CRT/fragmentShader.glsl');
 
-    this.activeMenu = "MainMenu"; // MainMenu, OptionsMenu, CreditsMenu, Game, InGameMenu, LevelSelector,
-    this.activeOptionsMenu = "GraphicsMenu"; // GraphicsMenu, SoundMenu, ControllsMenu,
-    this.activeLevel = "";
+    InputManager.init();
+    AspectRatio.init();
+    PageStatus.init();
+    Shader.init(vertexShaderSource, fragmentShaderSource);
+    DeltaTime.init();
 
-    this.contentLoaded = false;
+    Shader.initExtraTexture(Settings.pathScanlines, 1, 'u_scanlines');
+    Shader.initExtraTexture(Settings.pathNoise, 2, 'u_noise');
+    Shader.initExtraTexture(Settings.pathVignette, 3, 'u_vignette');
+
+    setCanvasSize(this.canvas.width, this.canvas.height);
 
     this.screens = {};
 
-    this.levelPrevieuwCenter = 2;
+    this.screens.backgroundScreen = Background;
+    this.screens.game = Game;
+    this.screens.startScreen = Start;
+    this.screens.optionsScreen = Options;
+    this.screens.creditsScreen = Credits;
+    this.screens.inGameScreen = InGame;
+    this.screens.inGameMenuScreen = InGameMenu;
+    this.screens.gameOverScreen = GameOver;
+    this.screens.FPSCounter = FPSCounter;
+    this.screens.grayFilter = GrayFilter;
+    this.screens.levelSelector = LevelSelector;
 
-    const soundtrack = new Audio('assets/audio/UI/soundtrack.mp3');
-    soundtrack.volume = 0.5;
-    soundtrack.loop = true;
+    for (const screen in this.screens) {
+      this.screens[screen].init();
+    }
 
-    this.breakSound = new Audio('assets/audio/UI/woodBreak.mp3');
+    AudioManager.createMusic("soundtrack", "assets/audio/UI/soundtrack.mp3");
 
-    this.isVisible = true;
-
-    document.addEventListener("visibilitychange", () => {
-      this.isVisible = document.visibilityState === "visible";
-      this.#timeThisFrame = performance.now();
-      this.#timeLastFrame = this.#timeThisFrame;
-      this.dt = 0;
-    });
-
-    document.addEventListener("click", () => {
-      soundtrack.play();
+    window.addEventListener("click", () => {
+      AudioManager.play("soundtrack");
     }, { once: true });
+
+    window.addEventListener("resize", this.resize.bind(this));
+
+    this.lastFrameTime = performance.now();
+    this.frameCount = 0;
+    this.lastLogTime = performance.now();
   }
 
-  run() {
-    this.#update();
-    this.#draw();
-
+  static run(time) {
     requestAnimationFrame(this.run.bind(this));
+
+    const elapsed = time - this.lastFrameTime;
+    const elapsedSinceLog = time - this.lastLogTime;
+
+    if (elapsed < 1000 / Options.fpsLimit) {
+      return;
+    }
+
+    this.lastFrameTime = time;
+    this.frameCount++;
+
+    if (elapsedSinceLog >= 1000) {
+      FPSCounter.currentFPS = this.frameCount;
+      this.frameCount = 0;
+      this.lastLogTime = time;
+    }
+
+    this.update();
+    this.draw();
   }
 
-  #update() {
-    this.#deltaTime();
+  static update() {
+    InputManager.update();
+    DeltaTime.update();
+    Shader.update();
 
-    if (!this.isVisible) return;
-    this.currentInput = JSON.parse(JSON.stringify(this.#inputs));
-
-    if (!this.contentLoaded) return;
-
-    switch (this.activeMenu) {
-      case "MainMenu":
-        if (this.screens.MainMenu.buttonStart.clicked()) this.activeMenu = "LevelSelector";
-        if (this.screens.MainMenu.buttonOptions.clicked()) this.activeMenu = "OptionsMenu";
-        if (this.screens.MainMenu.buttonQuit.clicked()) window.close();
-
-        if (this.screens.MainMenu.infoButton.clicked()) this.activeMenu = "CreditsMenu";
-        break;
-      case "OptionsMenu":
-        switch (this.activeOptionsMenu) {
-          case "GraphicsMenu":
-            if (this.screens[this.activeOptionsMenu].buttonSound.clicked()) this.activeOptionsMenu = "SoundMenu";
-            if (this.screens[this.activeOptionsMenu].buttonControlls.clicked()) this.activeOptionsMenu = "ControllsMenu";
-            break;
-
-          case "SoundMenu":
-            if (this.screens[this.activeOptionsMenu].buttonGraphics.clicked()) this.activeOptionsMenu = "GraphicsMenu";
-            if (this.screens[this.activeOptionsMenu].buttonControlls.clicked()) this.activeOptionsMenu = "ControllsMenu";
-            break;
-
-          case "ControllsMenu":
-            if (this.screens[this.activeOptionsMenu].buttonGraphics.clicked()) this.activeOptionsMenu = "GraphicsMenu";
-            if (this.screens[this.activeOptionsMenu].buttonSound.clicked()) this.activeOptionsMenu = "SoundMenu";
-            break;
-        }
-
-        if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "MainMenu";
-        if (this.screens.OptionsMenu.backButton.clicked()) this.activeMenu = "MainMenu";
-
-        break;
-      case "CreditsMenu":
-        if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "MainMenu";
-        if (this.screens.CreditsMenu.backButton.clicked()) this.activeMenu = "MainMenu";
-        break;
-      case "LevelSelector":
-        if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "MainMenu";
-        if (this.screens.LevelSelector.backButton.clicked()) this.activeMenu = "MainMenu";
-
-        if (this.screens.LevelSelector.arrowsButtonLeft && this.screens.LevelSelector.arrowsButtonLeft.clicked()) {
-          this.levelPrevieuwCenter -= 1;
-          this.#arrangeLevelPrevieuws();
-        }
-        if (this.screens.LevelSelector.arrowsButtonRight && this.screens.LevelSelector.arrowsButtonRight.clicked()) {
-          this.levelPrevieuwCenter += 1;
-          this.#arrangeLevelPrevieuws();
-        }
-
-        for (let level in this.screens.LevelSelector) {
-          if (level.includes("level")) {
-
-            if (this.screens.LevelSelector[level].clicked()) {
-              this.activeMenu = "Game";
-              this.activeLevel = "Level" + level.match(/\d+/);
-            }
-          }
-        }
-
-        break;
-      case "Game":
-        if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "InGameMenu";
-        if (this.screens.Game.pauseButton.clicked()) this.activeMenu = "InGameMenu";
-        if (this.screens.Game.inventoryButton.clicked()) this.activeMenu = "Inventory";
-        break;
-      case "InGameMenu":
-        if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "Game";
-
-        if (this.screens.InGameMenu.resumeButton.clicked()) this.activeMenu = "Game";
-        if (this.screens.InGameMenu.restartButton.clicked()) {
-          this.activeMenu = "Game";
-          this.#loadUI();
-        }
-        if (this.screens.InGameMenu.exitButton.clicked()) this.activeMenu = "MainMenu";
-        break;
-      case "Inventory":
-        if (this.#currentinput.keysPressed[27] && !this.#previousinput.keysPressed[27]) this.activeMenu = "Game";
-
-        if (this.screens.Inventory.backButton.clicked()) this.activeMenu = "Game";
-        break;
+    for (const screen in this.screens) {
+      this.screens[screen].update();
     }
 
-    for (let sprite in this.screens[this.activeMenu]) {
-      this.screens[this.activeMenu][sprite].update(this.dt, this.#currentinput);
-    }
-
-    if (this.activeMenu == "OptionsMenu") {
-      for (let sprite in this.screens[this.activeOptionsMenu]) {
-        this.screens[this.activeOptionsMenu][sprite].update(this.dt, this.#currentinput);
-      }
-    }
-
-    if (this.activeMenu == "Game") {
-      this.screens[this.activeLevel].player.slingshot = this.screens[this.activeLevel].slingshot;
-      this.screens[this.activeLevel].player.ground = this.screens[this.activeLevel].ground;
-
-      const boxes = Object.entries(this.screens[this.activeLevel])
-        .filter(([sprite]) => sprite.includes("box"))
-        .map(([, box]) => box);
-
-
-      for (let sprite in this.screens[this.activeLevel]) {
-        if (sprite.includes("box")) {
-          const currentBox = this.screens[this.activeLevel][sprite];
-          const otherBoxes = boxes.filter(box => box !== currentBox);
-
-          this.screens[this.activeLevel][sprite].player = this.screens[this.activeLevel].player;
-          this.screens[this.activeLevel][sprite].ground = this.screens[this.activeLevel].ground;
-          this.screens[this.activeLevel][sprite].boxes = otherBoxes;
-
-          if (rectRectCollision(this.screens[this.activeLevel][sprite], this.screens[this.activeLevel].player)) {
-            delete this.screens[this.activeLevel][sprite];
-            this.breakSound.play();
-          }
-        }
-      }
-
-      for (let sprite in this.screens[this.activeLevel]) {
-        this.screens[this.activeLevel][sprite].update(this.dt, this.#currentinput);
-      }
-    }
-
-    this.#previousinput = JSON.parse(JSON.stringify(this.#currentinput));
+    this.saveLocalStorage();
   }
 
-  #draw() {
+  static draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    if (!this.contentLoaded) return;
+    const screenNames = Object.keys(this.screens);
+    screenNames.sort((a, b) => this.screens[a].zIndex - this.screens[b].zIndex);
 
-    for (let sprite in this.screens[this.activeMenu]) {
-      this.screens[this.activeMenu][sprite].draw();
+    for (const screenName of screenNames) {
+      this.screens[screenName].draw();
     }
 
-    if (this.activeMenu == "OptionsMenu") {
-      for (let sprite in this.screens[this.activeOptionsMenu]) {
-        this.screens[this.activeOptionsMenu][sprite].draw();
-      }
-    }
+    Shader.draw();
+  }
 
-    if (this.activeMenu == "Game") {
-      for (let sprite in this.screens[this.activeLevel]) {
-        this.screens[this.activeLevel][sprite].draw();
-      }
+  static resize() {
+    AspectRatio.adjust();
+    Shader.resize();
+    setCanvasSize(this.canvas.width, this.canvas.height);
+
+    for (const screen in this.screens) {
+      this.screens[screen].resize({ x: 0, y: 0 }, { x: this.canvas.width, y: this.canvas.height });
     }
   }
 
-  #deltaTime() {
-    this.#timeThisFrame = performance.now();
-    this.dt = (this.#timeThisFrame - this.#timeLastFrame) / 1000;
-    this.#timeLastFrame = this.#timeThisFrame;
+  static saveLocalStorage() {
+    if (!this.save) return;
+
+    const saveData = {
+      showCollisionBoxes: Options.showCollisionBoxes,
+      fpsLimit: Options.fpsLimit,
+      windowMode: Options.windowMode,
+      resolution: Options.resolution,
+      showFPS: Options.showFPS,
+      masterVolume: Options.masterVolume,
+      musicVolume: Options.musicVolume,
+      soundEffectVolume: Options.soundEffectVolume,
+    };
+
+    localStorage.setItem("saveData", JSON.stringify(saveData));
+    this.save = false;
   }
 
-  adjustAspectRatio() {
-    if ((window.innerHeight * 16) / 9 > window.innerWidth) {
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = (window.innerWidth * 9) / 16;
-    } else {
-      this.canvas.width = (window.innerHeight * 16) / 9;
-      this.canvas.height = window.innerHeight;
+  static loadLocalStorage() {
+    const saveData = JSON.parse(localStorage.getItem("saveData"));
+
+    if (saveData) {
+      Options.fpsLimit = saveData.fpsLimit;
+      Options.windowMode = saveData.windowMode;
+      Options.showCollisionBoxes = saveData.showCollisionBoxes;
+      GameObject.showCollisionBoxes = saveData.showCollisionBoxes;
+      Options.showFPS = saveData.showFPS;
+      Options.resolution = saveData.resolution;
+      Options.masterVolume = saveData.masterVolume;
+      Options.musicVolume = saveData.musicVolume;
+      Options.soundEffectVolume = saveData.soundEffectVolume;
     }
-
-    
-  }
-
-  resizeAll() {
-    for (let screen in this.screens) {
-      for (let sprite in this.screens[screen]) {
-        this.screens[screen][sprite].resize(this.canvas.width, this.canvas.height);
-      }
-    }
-
-    this.#atLoaded()
-  }
-
-  #events() {
-    this.#inputs.keysPressed = {};
-    for (let i = 0; i <= 255; i++) {
-      this.#inputs.keysPressed[i] = false;
-    }
-
-    this.#inputs.mouseButtonsPressed = {};
-    this.#inputs.mouseButtonsPressed[0] = false;
-    this.#inputs.mouseButtonsPressed[1] = false;
-    this.#inputs.mouseButtonsPressed[2] = false;
-
-    this.#inputs.mousePosition = { x: 0, y: 0 };
-
-    document.addEventListener("keydown", (event) => {
-      this.#inputs.keysPressed[event.keyCode] = true;
-    });
-
-    document.addEventListener("keyup", (event) => {
-      this.#inputs.keysPressed[event.keyCode] = false;
-    });
-
-    document.addEventListener("mousedown", (event) => {
-      this.#inputs.mouseButtonsPressed[event.button] = true;
-    });
-
-    document.addEventListener("mouseup", (event) => {
-      this.#inputs.mouseButtonsPressed[event.button] = false;
-    });
-
-    document.addEventListener("mousemove", (event) => {
-      this.#inputs.mousePosition.x =
-        event.clientX - (window.innerWidth - this.canvas.width) / 2;
-      this.#inputs.mousePosition.y =
-        event.clientY - (window.innerHeight - this.canvas.height) / 2;
-    });
-
-    document.addEventListener("touchstart", (event) => {
-      this.#inputs.mouseButtonsPressed[0] = true;
-      const touch = event.touches[0];
-      this.#inputs.mousePosition = {
-        x: touch.clientX - (window.innerWidth - this.canvas.width) / 2,
-        y: touch.clientY - (window.innerHeight - this.canvas.height) / 2,
-      };
-    });
-  
-    document.addEventListener("touchmove", (event) => {
-      const touch = event.touches[0];
-      this.#inputs.mousePosition = {
-        x: touch.clientX - (window.innerWidth - this.canvas.width) / 2,
-        y: touch.clientY - (window.innerHeight - this.canvas.height) / 2,
-      };
-    });
-  
-    document.addEventListener("touchend", () => {
-      this.#inputs.mouseButtonsPressed[0] = false;
-    });
-
-    window.addEventListener("resize", () => {
-      this.adjustAspectRatio();
-      this.resizeAll();
-    });
-
-    this.#currentinput = this.#inputs;
-    this.#previousinput = this.#inputs;
-  }
-
-  #atLoaded() {
-    this.#arrangeLevelPrevieuws();
-  }
-
-  #loadUI() {
-    fetch("assets/layout/layout.json")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        this.screens = {};
-        for (const menu in data) {
-          this.screens[menu] = {};
-          for (const element in data[menu]) {
-            switch (data[menu][element].type) {
-              case "Sprite":
-                this.screens[menu][element] = new Sprite(
-                  data[menu][element].path,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  }
-                );
-                break;
-              
-              case "Text":
-                this.screens[menu][element] = new Text(
-                  data[menu][element].text,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  this.canvas.width * data[menu][element].size,
-                  data[menu][element].color
-                );
-                break;
-              
-              case "Button":
-                this.screens[menu][element] = new Button(
-                  data[menu][element].pathUp,
-                  data[menu][element].pathDown,
-                  data[menu][element].text,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  }
-                );
-                break;
-              
-              case "ChoiceBox":
-                this.screens[menu][element] = new ChoiceBox(
-                  data[menu][element].pathOpen,
-                  data[menu][element].pathClosed,
-                  data[menu][element].options,
-                  {
-                    backSignOpen: {
-                      x: this.canvas.width * data[menu][element].position.backSignOpen.x,
-                      y: this.canvas.height * data[menu][element].position.backSignOpen.y,
-                    },
-                    backSignClosed: {
-                      x: this.canvas.width * data[menu][element].position.backSignClosed.x,
-                      y: this.canvas.height * data[menu][element].position.backSignClosed.y,
-                    },
-                    firstOption: {
-                      x: this.canvas.width * data[menu][element].position.firstOption.x,
-                      y: this.canvas.height * data[menu][element].position.firstOption.y,
-                    },
-                    otherOptions: [
-                      {
-                        x: this.canvas.width * data[menu][element].position.secondOptions.x,
-                        y: this.canvas.height * data[menu][element].position.secondOptions.y,
-                      },
-                      {
-                        x: this.canvas.width * data[menu][element].position.thirdOptions.x,
-                        y: this.canvas.height * data[menu][element].position.thirdOptions.y,
-                      },
-                    ],
-                  },
-                  {
-                    backSignOpen: {
-                      x: data[menu][element].position.backSignOpen.x,
-                      y: data[menu][element].position.backSignOpen.y,
-                    },
-                    backSignClosed: {
-                      x: data[menu][element].position.backSignClosed.x,
-                      y: data[menu][element].position.backSignClosed.y,
-                    },
-                    firstOption: {
-                      x: data[menu][element].position.firstOption.x,
-                      y: data[menu][element].position.firstOption.y,
-                    },
-                    otherOptions: [
-                      {
-                        x: data[menu][element].position.secondOptions.x,
-                        y:  data[menu][element].position.secondOptions.y,
-                      },
-                      {
-                        x: data[menu][element].position.thirdOptions.x,
-                        y: data[menu][element].position.thirdOptions.y,
-                      },
-                    ],
-                  },
-                  {
-                    backSignOpen: {
-                      x: this.canvas.width * data[menu][element].size.backSignOpen.x,
-                      y: this.canvas.height * data[menu][element].size.backSignOpen.y,
-                    },
-                    backSignClosed: {
-                      x: this.canvas.width * data[menu][element].size.backSignClosed.x,
-                      y: this.canvas.height * data[menu][element].size.backSignClosed.y,
-                    },
-                    text: this.canvas.width * data[menu][element].size.text,
-                  },
-                  {
-                    backSignOpen: {
-                      x: data[menu][element].size.backSignOpen.x,
-                      y: data[menu][element].size.backSignOpen.y,
-                    },
-                    backSignClosed: {
-                      x: data[menu][element].size.backSignClosed.x,
-                      y: data[menu][element].size.backSignClosed.y,
-                    },
-                    text: data[menu][element].size.text,
-                  },
-                  data[menu][element].color
-                );
-
-                this.screens[menu][element].alwaysOpen = true;
-                break;
-              
-              case "Slider":
-                this.screens[menu][element] = new Slider(
-                  data[menu][element].pathBar,
-                  data[menu][element].pathPin,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  },
-                  data[menu][element].value
-                );
-                break;
-              
-              case "Switch":
-                this.screens[menu][element] = new Switch(
-                  data[menu][element].pathOn,
-                  data[menu][element].pathOff,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  },
-                  data[menu][element].value
-                );
-                break;
-
-              case "Player":
-                this.screens[menu][element] = new Player(
-                  data[menu][element].path,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  },
-                );
-                break;
-              
-              case "Slingshot":
-                this.screens[menu][element] = new Slingshot(
-                  data[menu][element].pathPool,
-                  data[menu][element].pathNet,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  },
-                  data[menu][element].range * this.canvas.width,
-                );
-                break;
-
-              case "Ground":
-                this.screens[menu][element] = new Ground(
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  }
-                );
-                break;
-
-              case "Obstacle":
-                this.screens[menu][element] = new Obstacle(
-                  data[menu][element].path,
-                  {
-                    x: this.canvas.width * data[menu][element].position.x,
-                    y: this.canvas.height * data[menu][element].position.y,
-                  },
-                  {
-                    x: this.canvas.width * data[menu][element].size.x,
-                    y: this.canvas.height * data[menu][element].size.y,
-                  }
-                );
-                break;
-            }
-          }
-        }
-
-        this.#atLoaded();
-        this.contentLoaded = true;
-      })
-      .catch((error) => {
-        console.error("There was a problem fetching the data:", error);
-      });
-  }
-
-  #arrangeLevelPrevieuws() {
-    const previeuwPositions = [{ x: 0.226, y: 0.301 }, { x: 0.406, y: 0.280 }, { x: 0.606, y: 0.301 }];
-    
-    // Assuming you have the following objects
-    const levelSelectorKeys = Object.keys(this.screens.LevelSelector);
-    const bigKeys = Object.keys(this.screens.LevelsButtonBig);
-    const smallKeys = Object.keys(this.screens.LevelsButtonSmall);
-    const notVisibleKeys = Object.keys(this.screens.NotVisable);
-
-    // Find common keys
-    const commonKeys = levelSelectorKeys.filter(key => bigKeys.includes(key) || smallKeys.includes(key) || notVisibleKeys.includes(key));
-
-    // Remove common keys from LevelSelector
-    commonKeys.forEach(key => delete this.screens.LevelSelector[key]);
-
-    this.screens.LevelSelector[`level${this.levelPrevieuwCenter - 1}`] = this.screens.LevelsButtonSmall[`level${this.levelPrevieuwCenter - 1}`];
-    this.screens.LevelSelector[`level${this.levelPrevieuwCenter - 1}`].changePosition({x: this.canvas.width * previeuwPositions[0].x, y: this.canvas.height * previeuwPositions[0].y});
-
-    this.screens.LevelSelector[`level${this.levelPrevieuwCenter}`] = this.screens.LevelsButtonBig[`level${this.levelPrevieuwCenter}`];
-    this.screens.LevelSelector[`level${this.levelPrevieuwCenter}`].changePosition({x: this.canvas.width * previeuwPositions[1].x, y: this.canvas.height * previeuwPositions[1].y});
-    
-    this.screens.LevelSelector[`level${this.levelPrevieuwCenter + 1}`] = this.screens.LevelsButtonSmall[`level${this.levelPrevieuwCenter + 1}`];
-    this.screens.LevelSelector[`level${this.levelPrevieuwCenter + 1}`].changePosition({x: this.canvas.width * previeuwPositions[2].x, y: this.canvas.height * previeuwPositions[2].y});
-
-    if (this.levelPrevieuwCenter <= 2) {
-      this.screens.LevelSelector["blockArrowsLeft"] = this.screens.NotVisable["blockArrowsLeft"];
-      this.screens.LevelSelector["arrowsButtonRight"] = this.screens.NotVisable["arrowsButtonRight"];
-    }
-    else if (this.levelPrevieuwCenter >= 4) {
-      this.screens.LevelSelector["blockArrowsRight"] = this.screens.NotVisable["blockArrowsRight"];
-      this.screens.LevelSelector["arrowsButtonLeft"] = this.screens.NotVisable["arrowsButtonLeft"];
-    }
-    else {
-      this.screens.LevelSelector["arrowsButtonLeft"] = this.screens.NotVisable["arrowsButtonLeft"];
-      this.screens.LevelSelector["arrowsButtonRight"] = this.screens.NotVisable["arrowsButtonRight"];
-    }
-
-    this.screens.LevelSelector;
-
-    this.screens.LevelsButtonBig;
-    this.screens.LevelsButtonSmall;
-    this.screens.NotVisable;
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const main = new Main();
-  main.run();
+document.addEventListener("DOMContentLoaded", async () => {
+  await Main.init();
+  Main.run();
 });

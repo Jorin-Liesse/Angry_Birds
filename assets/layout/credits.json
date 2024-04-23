@@ -1,0 +1,62 @@
+{
+  "backSignBig": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/BackFrameMedium.png",
+    "position": { "x": 0.229, "y": 0.148 },
+    "size": { "x": 0.542, "y": 0.704 }
+  },
+  "titleBox": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/TitleBox.png",
+    "position": { "x": 0.331, "y": 0.057 },
+    "size": { "x": 0.337, "y": 0.209 }
+  },
+  "title": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/ExtraInfo.png",
+    "position": { "x": 0.331, "y": 0.057 },
+    "size": { "x": 0.337, "y": 0.209 }
+  },
+  "infotext": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/ExtraInfoText.png",
+    "position": { "x": 0.289, "y": 0.246 },
+    "size": { "x": 0.418, "y": 0.538 }
+  },
+  "backButton": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/CrossButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/CrossButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.724, "y": 0.097 },
+    "size": { "x": 0.075, "y": 0.133 },
+    "text": "",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  },
+  "linkedinButton": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/myLinkedin.png",
+    "pathDownSprite": "assets/graphics/UI/myLinkedin.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.4595, "y": 0.635 },
+    "size": { "x": 0.081, "y": 0.031 },
+    "text": "",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  },
+  "githubButton": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/myGithub.png",
+    "pathDownSprite": "assets/graphics/UI/myGithub.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.4595, "y": 0.67 },
+    "size": { "x": 0.081, "y": 0.031 },
+    "text": "",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  }
+}

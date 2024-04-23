@@ -1,0 +1,83 @@
+{
+  "backSignBig": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/BackFrameMedium.png",
+    "position": { "x": 0.395, "y": 0.148 },
+    "size": { "x": 0.542, "y": 0.704 }
+  },
+  "backButton": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/HomeButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/HomeButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.890, "y": 0.097 },
+    "size": { "x": 0.075, "y": 0.133 },
+    "text": "",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  },
+  "textMasterVolume": {
+    "type": "Text",
+    "position": { "x": 0.543, "y": 0.227 },
+    "size": 0.0425,
+    "text": "Master Volume",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "align": ""
+  },
+  "textMusicVolume": {
+    "type": "Text",
+    "position": { "x": 0.555, "y": 0.44 },
+    "size": 0.0425,
+    "text": "Music Volume",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "align": ""
+  },
+  "textSoundEffectVolume": {
+    "type": "Text",
+    "position": { "x": 0.4934, "y": 0.652 },
+    "size": 0.0425,
+    "text": "Sound Effect Volume",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "align": ""
+  },
+  "sliderMasterVolume": {
+    "type": "Slider",
+    "pathBar": "assets/graphics/UI/SliderBar.png",
+    "pathPin": "assets/graphics/UI/SliderPin.png",
+    "pathSound": "assets/audio/UI/buttonUp.mp3",
+    "position": { "x": 0.494, "y": 0.286 },
+    "sizes": {
+      "bar": { "x": 0.344, "y": 0.092 },
+      "pin": { "x": 0.0184, "y": 0.092 }
+    },
+    "value": 0.25
+  },
+  "sliderMusicVolume": {
+    "type": "Slider",
+    "pathBar": "assets/graphics/UI/SliderBar.png",
+    "pathPin": "assets/graphics/UI/SliderPin.png",
+    "pathSound": "assets/audio/UI/buttonUp.mp3",
+    "position": { "x": 0.494, "y": 0.5 },
+    "sizes": {
+      "bar": { "x": 0.344, "y": 0.092 },
+      "pin": { "x": 0.0184, "y": 0.092 }
+    },
+    "value": 0.75
+  },
+  "sliderSoundEffectVolume": {
+    "type": "Slider",
+    "pathBar": "assets/graphics/UI/SliderBar.png",
+    "pathPin": "assets/graphics/UI/SliderPin.png",
+    "pathSound": "assets/audio/UI/buttonUp.mp3",
+    "position": { "x": 0.494, "y": 0.713 },
+    "sizes": {
+      "bar": { "x": 0.344, "y": 0.092 },
+      "pin": { "x": 0.0184, "y": 0.092 }
+    },
+    "value": 0.25
+  }
+}

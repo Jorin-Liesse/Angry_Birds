@@ -1,0 +1,26 @@
+{
+  "backSignBig": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/BackFrameMedium.png",
+    "position": { "x": 0.395, "y": 0.148 },
+    "size": { "x": 0.542, "y": 0.704 }
+  },
+  "backButton": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/HomeButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/HomeButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.890, "y": 0.097 },
+    "size": { "x": 0.075, "y": 0.133 },
+    "text": "",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  },
+  "controllsPC": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/ControllsPC.png",
+    "position": { "x": 0.445, "y": 0.213 },
+    "size": { "x": 0.442, "y": 0.574 }
+  }
+}

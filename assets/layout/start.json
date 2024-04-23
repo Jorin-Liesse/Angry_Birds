@@ -1,0 +1,68 @@
+{
+  "infoButton": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/InfoButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/InfoButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.021, "y": 0.03 },
+    "size": { "x": 0.075, "y": 0.133 },
+    "text": "",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  },
+  "backSign": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/BackFrameSmall.png",
+    "position": { "x": 0.349, "y": 0.148 },
+    "size": { "x": 0.302, "y": 0.704 }
+  },
+  "titleBox": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/TitleBox.png",
+    "position": { "x": 0.331, "y": 0.057 },
+    "size": { "x": 0.337, "y": 0.209 }
+  },
+  "title": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/AngryBirds.png",
+    "position": { "x": 0.331, "y": 0.057 },
+    "size": { "x": 0.337, "y": 0.209 }
+  },
+  "buttonStart": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/ButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/ButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.392, "y": 0.253 },
+    "size": { "x": 0.215, "y": 0.138 },
+    "text": "Play",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  },
+  "buttonOptions": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/ButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/ButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.392, "y": 0.430 },
+    "size": { "x": 0.215, "y": 0.138 },
+    "text": "Options",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  },
+  "buttonQuit": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/ButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/ButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.392, "y": 0.606 },
+    "size": { "x": 0.215, "y": 0.138 },
+    "text": "Quit",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  }
+}

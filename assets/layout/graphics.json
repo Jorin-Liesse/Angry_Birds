@@ -1,0 +1,179 @@
+{
+  "backSignBig": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/BackFrameMedium.png",
+    "position": { "x": 0.395, "y": 0.148 },
+    "size": { "x": 0.542, "y": 0.704 }
+  },
+  "backButton": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/HomeButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/HomeButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.890, "y": 0.097 },
+    "size": { "x": 0.075, "y": 0.133 },
+    "text": "",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  },
+  "choiceWindowMode": {
+    "type": "ChoiceBox",
+    "pathOpenSprite": "assets/graphics/UI/ChoiceBoxMediumOpen.png",
+    "pathClosedSprite": "assets/graphics/UI/ChoiceBoxMediumClosed.png",
+    "pathSound": "assets/audio/UI/buttonUp.mp3",
+    "options": ["windowed", "fullscreen", "borderless"],
+    "positions": {
+      "signOpen": { "x": 0.479, "y": 0.272 },
+      "signClosed": { "x": 0.485, "y": 0.282 },
+      "options": [
+        { "x": 0.548, "y": 0.315 },
+        { "x": 0.571, "y": 0.377 },
+        { "x": 0.571, "y": 0.438 }
+      ]
+    },
+
+    "sizes": {
+      "signOpen": { "x": 0.184, "y": 0.206 },
+      "signClosed": { "x": 0.168, "y": 0.065 }
+    },
+    "sizeText": 0.026,
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "alwaysOpen": true
+  },
+  "choiceFPS": {
+    "type": "ChoiceBox",
+    "pathOpenSprite": "assets/graphics/UI/ChoiceBoxSmallOpen.png",
+    "pathClosedSprite": "assets/graphics/UI/ChoiceBoxSmallClosed.png",
+    "pathSound": "assets/audio/UI/buttonUp.mp3",
+    "options": ["60", "30", "144"],
+    "positions": {
+      "signOpen": { "x": 0.743, "y": 0.272 },
+      "signClosed": { "x": 0.750, "y": 0.282 },
+      "options": [
+        { "x": 0.780, "y": 0.317 },
+        { "x": 0.795, "y": 0.377 },
+        { "x": 0.795, "y": 0.438 }
+      ]
+    },
+
+    "sizes": {
+      "signOpen": { "x": 0.105, "y": 0.206 },
+      "signClosed": { "x": 0.092, "y": 0.065 }
+    },
+    "sizeText": 0.026,
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "alwaysOpen": true
+  },
+  "choiceResolution": {
+    "type": "ChoiceBox",
+    "pathOpenSprite": "assets/graphics/UI/ChoiceBoxMediumOpen.png",
+    "pathClosedSprite": "assets/graphics/UI/ChoiceBoxMediumClosed.png",
+    "pathSound": "assets/audio/UI/buttonUp.mp3",
+    "options": ["1920x1080", "1280x720", "3840x2160"],
+    "positions": {
+      "signOpen": { "x": 0.667, "y": 0.571 },
+      "signClosed": { "x": 0.674, "y": 0.580 },
+      "options": [
+        { "x": 0.740, "y": 0.617 },
+        { "x": 0.759, "y": 0.676 },
+        { "x": 0.759, "y": 0.737 }
+      ]
+    },
+
+    "sizes": {
+      "signOpen": { "x": 0.184, "y": 0.206 },
+      "signClosed": { "x": 0.168, "y": 0.065 }
+    },
+    "sizeText": 0.026,
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "alwaysOpen": true
+  },
+  "textWinwdowMode": {
+    "type": "Text",
+    "position": { "x": 0.479, "y": 0.229 },
+    "size": 0.035,
+    "text": "Window Mode",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "align": "",
+    "baseLine": "bottom"
+  },
+  "textFPS": {
+    "type": "Text",
+    "position": { "x": 0.773, "y": 0.228 },
+    "size": 0.035,
+    "text": "FPS",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "align": "",
+    "baseLine": "bottom"
+  },
+  "textShowFPS": {
+    "type": "Text",
+    "position": { "x": 0.474, "y": 0.527 },
+    "size": 0.035,
+    "text": "Show FPS",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "align": "",
+    "baseLine": "bottom"
+  },
+  "textHitboxes": {
+    "type": "Text",
+    "position": { "x": 0.4775, "y": 0.669 },
+    "size": 0.035,
+    "text": "Hitboxes",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "align": "",
+    "baseLine": "bottom"
+  },
+  "textResolution": {
+    "type": "Text",
+    "position": { "x": 0.690, "y": 0.527 },
+    "size": 0.035,
+    "text": "Resolution",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "align": "",
+    "baseLine": "bottom"
+  },
+  "switchShowFPS": {
+    "type": "Switch",
+    "pathOn": "assets/graphics/UI/SwitchOn.png",
+    "pathOff": "assets/graphics/UI/SwitchOff.png",
+    "pathSound": "assets/audio/UI/buttonUp.mp3",
+    "position": { "x": 0.499, "y": 0.571 },
+      "size": { "x": 0.075, "y": 0.067 },
+    "value": "on"
+  },
+  "switchHitboxes": {
+    "type": "Switch",
+    "pathOn": "assets/graphics/UI/SwitchOn.png",
+    "pathOff": "assets/graphics/UI/SwitchOff.png",
+    "pathSound": "assets/audio/UI/buttonUp.mp3",
+    "position": { "x": 0.499, "y": 0.710 },
+    "size": { "x": 0.075, "y": 0.067 },
+      "value": "off"
+  },
+  "choiceResolutionGray": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/ChoiceBoxMediumOpenGrayFilter.png",
+    "position": { "x": 0.667, "y": 0.571 },
+    "size": { "x": 0.184, "y": 0.206 }
+  },
+  "textResolutionGray": {
+    "type": "Text",
+    "position": { "x": 0.690, "y": 0.527 },
+    "size": 0.035,
+    "text": "Resolution",
+    "font": "Ubuntu Title",
+    "color": "#948177",
+    "align": "",
+    "baseLine": "bottom"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "FPSCounter": {
+    "type": "Text",
+    "position": { "x": 0.999, "y": 0.96 },
+    "size": 0.025,
+    "text": "0",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f",
+    "align": "right",
+    "baseLine": "middle"
+  }
+}

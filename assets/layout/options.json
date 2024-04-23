@@ -1,0 +1,104 @@
+{
+  "backSignSmall": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/BackFrameSmall.png",
+    "position": { "x": 0.063, "y": 0.148 },
+    "size": { "x": 0.302, "y": 0.704 }
+  },
+  "titleBox": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/TitleBox.png",
+    "position": { "x": 0.045, "y": 0.057 },
+    "size": { "x": 0.337, "y": 0.209 }
+  },
+  "title": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/Options.png",
+    "position": { "x": 0.045, "y": 0.057 },
+    "size": { "x": 0.337, "y": 0.209 }
+  },
+  "buttonGraphics": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/ButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/ButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.107, "y": 0.253 },
+    "size": { "x": 0.215, "y": 0.138 },
+    "text": "Graphics",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  },
+  "buttonSound": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/ButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/ButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.107, "y": 0.430 },
+    "size": { "x": 0.215, "y": 0.138 },
+    "text": "Sound",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  },
+  "buttonControlls": {
+    "type": "Button",
+    "pathUpSprite": "assets/graphics/UI/ButtonUp.png",
+    "pathDownSprite": "assets/graphics/UI/ButtonDown.png",
+    "pathUpSound": "assets/audio/UI/buttonUp.mp3",
+    "pathDownSound": "assets/audio/UI/buttonDown.mp3",
+    "position": { "x": 0.107, "y": 0.606 },
+    "size": { "x": 0.215, "y": 0.138 },
+    "text": "Controls",
+    "font": "Ubuntu Title",
+    "color": "#c6ac9f"
+  },
+  "buttonGraphicsBlocked": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/BlockButton.png",
+    "position": { "x": 0.096, "y": 0.246 },
+    "size": { "x": 0.236, "y": 0.151 }
+  },
+  "buttonGraphicsBlockedText": {
+    "type": "Text",
+    "text": "Graphics",
+    "position": { "x": 0.122, "y": 0.298 },
+    "size": 0.055,
+    "color": "#c6ac9f",
+    "align": "",
+    "baseLine": "center",
+    "font": "Ubuntu Title"
+  },
+  "buttonSoundBlocked": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/BlockButton.png",
+    "position": { "x": 0.096, "y": 0.423 },
+    "size": { "x": 0.236, "y": 0.151 }
+  },
+  "buttonSoundBlockedText": {
+    "type": "Text",
+    "text": "Sound",
+    "position": { "x": 0.151, "y": 0.474 },
+    "size": 0.055,
+    "color": "#c6ac9f",
+    "align": "",
+    "baseLine": "center",
+    "font": "Ubuntu Title"
+  },
+  "buttonControllsBlocked": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/BlockButton.png",
+    "position": { "x": 0.096, "y": 0.6 },
+    "size": { "x": 0.236, "y": 0.151 }
+  },
+  "buttonControllsBlockedText": {
+    "type": "Text",
+    "text": "Controls",
+    "position": { "x": 0.119, "y": 0.651 },
+    "size": 0.055,
+    "color": "#c6ac9f",
+    "align": "",
+    "baseLine": "center",
+    "font": "Ubuntu Title"
+  }
+}
