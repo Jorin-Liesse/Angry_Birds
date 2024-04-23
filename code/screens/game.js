@@ -11,7 +11,7 @@ import { rectRectCollision } from "../canvasUtilitys/collision.js";
 import { getCanvasSize } from "../canvasUtilitys/canvasSize.js";
 import { Player } from "../gameObjects/player.js";
 import { Ground } from "../gameObjects/ground.js";
-import { Slingshot } from "../gameObjects/slingShot.js"; 
+import { Slingshot } from "../gameObjects/slingshot.js"; 
 import { Box } from "../gameObjects/box.js";
 
 export class Game extends Screen {
