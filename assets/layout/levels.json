@@ -2,13 +2,13 @@
   "level1": {
     "box1": {
       "type": "Box",
-      "path": "assets/graphics/Game/openBox.png",
+      "path": "assets/graphics/game/openBox.png",
       "position": { "x": 0.724, "y": 0.674 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box2": {
       "type": "Box",
-      "path": "assets/graphics/Game/openBox.png",
+      "path": "assets/graphics/game/openBox.png",
       "position": { "x": 0.781, "y": 0.674 },
       "size": { "x": 0.054, "y": 0.096 }
     }
@@ -16,19 +16,19 @@
   "level2": {
     "box1": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.724, "y": 0.674 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box2": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.781, "y": 0.674 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box3": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.754, "y": 0.577 },
       "size": { "x": 0.054, "y": 0.096 }
     }
@@ -36,25 +36,25 @@
   "level3": {
     "box1": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.724, "y": 0.674 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box2": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.781, "y": 0.674 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box3": {
       "type": "Box",
-      "path": "assets/graphics/Game/openBox.png",
+      "path": "assets/graphics/game/openBox.png",
       "position": { "x": 0.724, "y": 0.577 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box4": {
       "type": "Box",
-      "path": "assets/graphics/Game/openBox.png",
+      "path": "assets/graphics/game/openBox.png",
       "position": { "x": 0.781, "y": 0.577 },
       "size": { "x": 0.054, "y": 0.096 }
     }
@@ -62,31 +62,31 @@
   "level4": {
     "box1": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.724, "y": 0.674 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box2": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.781, "y": 0.674 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box3": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.724, "y": 0.577 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box4": {
       "type": "Box",
-      "path": "assets/graphics/Game/openBox.png",
+      "path": "assets/graphics/game/openBox.png",
       "position": { "x": 0.781, "y": 0.577 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box5": {
       "type": "Box",
-      "path": "assets/graphics/Game/openBox.png",
+      "path": "assets/graphics/game/openBox.png",
       "position": { "x": 0.754, "y": 0.480 },
       "size": { "x": 0.054, "y": 0.096 }
     }
@@ -94,37 +94,37 @@
   "level5": {
     "box1": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.724, "y": 0.674 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box2": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.781, "y": 0.674 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box3": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.724, "y": 0.577 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box4": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.781, "y": 0.577 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box5": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.724, "y": 0.480 },
       "size": { "x": 0.054, "y": 0.096 }
     },
     "box6": {
       "type": "Box",
-      "path": "assets/graphics/Game/closeBox.png",
+      "path": "assets/graphics/game/closeBox.png",
       "position": { "x": 0.781, "y": 0.480 },
       "size": { "x": 0.054, "y": 0.096 }
     }
