@@ -1,5 +1,6 @@
 import { Screen } from "../canvasUtilitys/screen.js";
 import { Settings } from "../settings.js";
+import { AudioManager } from "../canvasUtilitys/audioManager.js";
 
 import { Main } from "../main.js";
 import { InGame } from "./inGame.js";
@@ -22,6 +23,8 @@ export class Game extends Screen {
   static init() {
     super.init({zIndex: Settings.zIndex.game});
 
+    AudioManager.createSoundEffect("boxBreaking", Settings.boxSound);
+
     this.reset();
   }
 
@@ -38,6 +41,7 @@ export class Game extends Screen {
       if (rectRectCollision(this.boxesObj[boxStr].collisionBoxes, this.elements["player"])) {
         delete this.boxesObj[boxStr];
         delete this.elements[boxStr];
+        AudioManager.play("boxBreaking");
 
         for (const boxKey in this.boxesObj) {
           const box = this.boxesObj[boxKey];

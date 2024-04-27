@@ -61,6 +61,8 @@ export class Settings {
   static boxAnimationInfo = {rows: 1, columns: 1, startFrame: 0, endFrame: 0, frameRate: 1};
   static boxSize = { x: 0.054, y: 0.096 };
 
+  static boxSound = "assets/audio/Game/boxBreaking.wav"
+
   static groundPosition = {x: 0.075, y: 0.775};
   static groundSize = {x: 0.845, y: 0.125};
 
@@ -76,4 +78,6 @@ export class Settings {
   static previewRightOut = { x: 0.714, y: 0.283 };
 
   static previewSize = { x: 0.188, y: 0.434 };
+
+  static soundTrack = "assets/audio/UI/soundtrack.mp3";
 }

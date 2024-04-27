@@ -62,7 +62,7 @@ export class Main {
       this.screens[screen].init();
     }
 
-    AudioManager.createMusic("soundtrack", "assets/audio/UI/soundtrack.mp3");
+    AudioManager.createMusic("soundtrack", Settings.soundTrack);
 
     window.addEventListener("click", () => {
       AudioManager.play("soundtrack");
