@@ -7,10 +7,10 @@
 
 <div style="display: flex; flex-direction: row;">
     <a href="https://jorin-liesse.github.io/Angry_Birds/" target="_blank">
-        <img src="https://github.com/Jorin-Liesse/Angry_Birds/assets/66786568/4d9138d3-ad38-470f-a00c-e6c7fe502995" alt="Settings" width="400"/>
+        <img src="https://github.com/Jorin-Liesse/Angry_Birds/assets/66786568/37f94966-8b03-49b6-987d-94805330e854" alt="Settings" width="400"/>
     </a>
     <a href="https://jorin-liesse.github.io/Angry_Birds/" target="_blank">
-        <img src="https://github.com/Jorin-Liesse/Angry_Birds/assets/66786568/27fa6eb6-f894-4f62-ad3c-08c776f73d74" alt="GamePlay" width="400"/>
+        <img src="https://github.com/Jorin-Liesse/Angry_Birds/assets/66786568/d2e5559e-8c9c-4c18-b4bc-b29a62473069" alt="GamePlay" width="400"/>
     </a>
 </div>
 
