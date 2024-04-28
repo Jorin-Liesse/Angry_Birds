@@ -32,10 +32,16 @@ export class Game extends Screen {
     super.update();
     if (!this.checkUpdateNeeded()) return;
 
-    if (this.elements["player"].refPosition.x + this.elements["player"].refSize.x < 0) {
-      this.lost = true;
-      this.elements["player"].refPosition.x = 2;
-    };
+    if (this.restart) {
+      this.reset();
+      this.elements.player.iscollided = false;
+    }
+
+    if (this.elements["player"].iscollided &&
+        this.elements["player"].velocity.x < 0.000005 &&
+        this.elements["player"].velocity.y < 0.000005) {
+          this.lost = true;
+    }
 
     for (const boxStr in this.boxesObj) {
       if (rectRectCollision(this.boxesObj[boxStr].collisionBoxes, this.elements["player"])) {
@@ -57,10 +63,9 @@ export class Game extends Screen {
       InGame.status = "frozen";
       Background.status = "frozen";
       GameOver.status = "transitionIn";
+      GameOver.setStars();
       Main.save = true;
     }
-
-    if (this.restart) this.reset();
   }
 
   static draw() {
@@ -105,6 +110,8 @@ export class Game extends Screen {
       box.collidables = Object.values(this.boxesObj).filter((b) => b !== box);
       box.collidables.push(this.elements.ground.collisionBoxes);
     }
+
+    this.amountOfBoxes = Object.values(this.boxesObj).length;
   }
 
   static async loadLevelsData() {

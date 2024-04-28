@@ -128,7 +128,7 @@ export class LevelSelector extends Screen {
 
   static async loadPrevieuw() {
     for (let i = 1; i <= Settings.amountOfLevels; i++) {
-      const data = {
+      const data = { 
         pathUpSprite: `assets/graphics/UI/levelPreview/up/${i}.png`,
         pathDownSprite: `assets/graphics/UI/levelPreview/down/${i}.png`,
         pathUpSound: "assets/audio/UI/buttonUp.mp3",

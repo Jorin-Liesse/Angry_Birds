@@ -17,26 +17,6 @@
     "position": { "x": 0.331, "y": 0.057 },
     "size": { "x": 0.337, "y": 0.209 }
   },
-  "scoreText": {
-    "type": "Text",
-    "text": "Score",
-    "position": { "x": 0.5, "y": 0.265 },
-    "size": 0.05,
-    "color": "#c6ac9f",
-    "align": "center",
-    "baseLine": "bottom",
-    "font": "Ubuntu Title"
-  },
-  "scoreNumberText": {
-    "type": "Text",
-    "text": "0",
-    "position": { "x": 0.5, "y": 0.35 },
-    "size": 0.05,
-    "color": "#c6ac9f",
-    "align": "center",
-    "baseLine": "bottom",
-    "font": "Ubuntu Title"
-  },
   "buttonRestart": {
     "type": "Button",
     "pathUpSprite": "assets/graphics/UI/ButtonUp.png",
@@ -60,5 +40,41 @@
     "text": "Exit",
     "font": "Ubuntu Title",
     "color": "#c6ac9f"
+  },
+  "grayStar1": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/starGray.png",
+    "position": { "x": 0.391, "y": 0.24 },
+    "size": { "x": 0.078, "y": 0.1388 }
+  },
+  "grayStar2": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/starGray.png",
+    "position": { "x": 0.461, "y": 0.215 },
+    "size": { "x": 0.078, "y": 0.1388 }
+  },
+  "grayStar3": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/starGray.png",
+    "position": { "x": 0.531, "y": 0.24 },
+    "size": { "x": 0.078, "y": 0.1388 }
+  },
+  "yellowStar1": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/starYellow.png",
+    "position": { "x": 0.391, "y": 0.24 },
+    "size": { "x": 0.078, "y": 0.1388 }
+  },
+  "yellowStar2": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/starYellow.png",
+    "position": { "x": 0.461, "y": 0.215 },
+    "size": { "x": 0.078, "y": 0.1388 }
+  },
+  "yellowStar3": {
+    "type": "Sprite",
+    "path": "assets/graphics/UI/starYellow.png",
+    "position": { "x": 0.531, "y": 0.24 },
+    "size": { "x": 0.078, "y": 0.1388 }
   }
 }

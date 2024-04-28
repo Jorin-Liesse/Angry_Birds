@@ -61,7 +61,7 @@ export class Settings {
   static boxAnimationInfo = {rows: 1, columns: 1, startFrame: 0, endFrame: 0, frameRate: 1};
   static boxSize = { x: 0.054, y: 0.096 };
 
-  static boxSound = "assets/audio/Game/boxBreaking.wav"
+  static boxSound = "assets/audio/game/boxBreaking.wav"
 
   static groundPosition = {x: 0.075, y: 0.775};
   static groundSize = {x: 0.845, y: 0.125};
