@@ -27,9 +27,9 @@
 
 ### Key Features
 
-- **Classic Gameplay**: Navigate the bird through pipes by tapping the screen or pressing the spacebar.
-- **Score Tracking**: Keep track of your highest score as you play.
-- **Responsive Design**: Enjoy seamless gameplay on different screen sizes.
+- **Classic Gameplay**: Catapult birds to knock down structures.
+- **Challenging Levels**: Progress through a variety of levels with increasing difficulty and unique challenges.
+- **Score Tracking**: Keep track of your highest scores on each level and strive for three-star ratings.
 
 ### Technologies Used
 
@@ -92,7 +92,7 @@ If you encounter any issues during installation or running the application, plea
 - For issues related to script execution policies on Windows, refer to [Microsoft's documentation](https://go.microsoft.com/fwlink/?LinkID=135170).
 - Make sure you have installed all required dependencies and have the correct version of Node.js and npm.
   
-## Usage
+<!-- ## Usage
 ### Playing the Game
 
 To play the game, follow these steps:
@@ -101,7 +101,6 @@ To play the game, follow these steps:
 2. Once the game is launched, you will be presented with the main menu.
 3. Use the following controls to play the game:
    - **Spacebar** or **Left Mouse Button**: Flap wings to fly.
-   - *Optionally include other controls here.*
 4. Navigate through the obstacles by tapping the spacebar or left mouse button to keep the bird flying.
 5. Try to achieve the highest score possible by passing through the gaps between the obstacles without colliding.
 6. The game ends when the bird falls off the screen.
@@ -110,6 +109,26 @@ To play the game, follow these steps:
 ### Controls
 
 - **Spacebar** or **Left Mouse Button**: Flap wings to fly.
+- **Escape**: To pause the game. -->
+
+## Usage
+
+### Playing the Game
+
+To play the game, follow these steps:
+
+1. Launch the game by double-clicking the executable file (`Angry_Birds.exe` for Windows).
+2. Once the game is launched, you will be presented with the main menu.
+3. Use the following controls to play the game:
+   - **Click and Drag**: Adjust the angle and power of your shot.
+   - **Release Mouse Button**: Launch the bird from the catapult.
+4. Aim the catapult to knock down structures.
+5. Complete each level by destroying all structures and earning three-star ratings.
+
+### Controls
+
+- **Click and Drag**: Adjust the angle and power of your shot.
+- **Release Mouse Button**: Launch the bird from the catapult.
 - **Escape**: To pause the game.
 
 ## Credits
