@@ -91,25 +91,6 @@ If you encounter any issues during installation or running the application, plea
 - Make sure you navigate to the root directory of the repositor.
 - For issues related to script execution policies on Windows, refer to [Microsoft's documentation](https://go.microsoft.com/fwlink/?LinkID=135170).
 - Make sure you have installed all required dependencies and have the correct version of Node.js and npm.
-  
-<!-- ## Usage
-### Playing the Game
-
-To play the game, follow these steps:
-
-1. Launch the game by double-clicking the executable file (`Flappy-Bird.exe` for Windows).
-2. Once the game is launched, you will be presented with the main menu.
-3. Use the following controls to play the game:
-   - **Spacebar** or **Left Mouse Button**: Flap wings to fly.
-4. Navigate through the obstacles by tapping the spacebar or left mouse button to keep the bird flying.
-5. Try to achieve the highest score possible by passing through the gaps between the obstacles without colliding.
-6. The game ends when the bird falls off the screen.
-7. After the game ends, you can view your score and try again to beat it.
-
-### Controls
-
-- **Spacebar** or **Left Mouse Button**: Flap wings to fly.
-- **Escape**: To pause the game. -->
 
 ## Usage
 
