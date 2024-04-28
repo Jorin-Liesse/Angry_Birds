@@ -1,9 +1,18 @@
-# Flappy Bird
+# Angry Birds
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
-[![GitHub Release](https://img.shields.io/github/v/release/Jorin-Liesse/Flappy_Bird)](https://github.com/Jorin-Liesse/Flappy_Bird/releases)
-[![GitHub Stars](https://img.shields.io/github/stars/Jorin-Liesse/Flappy_Bird)](https://github.com/Jorin-Liesse/Flappy_Bird/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Jorin-Liesse/Flappy_Bird)](https://github.com/Jorin-Liesse/Flappy_Bird/forks)
-[![GitHub watchers](https://img.shields.io/github/watchers/Jorin-Liesse/Flappy_Bird)](https://github.com/Jorin-Liesse/Flappy_Bird/watchers)
+[![GitHub Release](https://img.shields.io/github/v/release/Jorin-Liesse/Angry_Birds)](https://github.com/Jorin-Liesse/Angry_Birds/releases)
+[![GitHub Stars](https://img.shields.io/github/stars/Jorin-Liesse/Angry_Birds)](https://github.com/Jorin-Liesse/Angry_Birds/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Jorin-Liesse/Angry_Birds)](https://github.com/Jorin-Liesse/Angry_Birds/forks)
+[![GitHub watchers](https://img.shields.io/github/watchers/Jorin-Liesse/Angry_Birds)](https://github.com/Jorin-Liesse/Angry_Birds/watchers)
+
+<div style="display: flex; flex-direction: row;">
+    <a href="https://jorin-liesse.github.io/Angry_Birds/" target="_blank">
+        <img src="https://github.com/Jorin-Liesse/Angry_Birds/assets/66786568/4d9138d3-ad38-470f-a00c-e6c7fe502995" alt="Settings" width="400"/>
+    </a>
+    <a href="https://jorin-liesse.github.io/Angry_Birds/" target="_blank">
+        <img src="https://github.com/Jorin-Liesse/Angry_Birds/assets/66786568/27fa6eb6-f894-4f62-ad3c-08c776f73d74" alt="GamePlay" width="400"/>
+    </a>
+</div>
 
 ## Table of Contents
 - [Project Description](#Project-Description)
@@ -14,7 +23,7 @@
 - [License](#License)
 
 ## Project Description
-**Flappy Bird Clone** is a recreation of the classic Flappy Bird game. It aims to provide an enjoyable and nostalgic gaming experience for players. The game features simple controls and addictive gameplay.
+**Angry Birds Clone** is a recreation of the classic Angry Birds game. It aims to provide an enjoyable and nostalgic gaming experience for players. The game features simple controls and addictive gameplay.
 
 ### Key Features
 
@@ -27,9 +36,6 @@
 - HTML5
 - CSS3
 - JavaScript
-
-![Gameplay GIF](path/to/gameplay.gif)
-![Score Tracking](path/to/score-tracking.gif)
 
 ## Installation
 
