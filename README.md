@@ -6,11 +6,6 @@
 [![GitHub watchers](https://img.shields.io/github/watchers/Jorin-Liesse/Angry_Birds)](https://github.com/Jorin-Liesse/Angry_Birds/watchers)
 
 
-![GitHub forks](https://img.shields.io/github/forks/Jorin-Liesse/Angry_Birds)
-![GitHub watchers](https://img.shields.io/github/watchers/Jorin-Liesse/Angry_Birds)
-![GitHub Repo stars](https://img.shields.io/github/stars/Jorin-Liesse/Angry_Birds)
-
-
 <div style="display: flex; flex-direction: row;">
     <a href="https://jorin-liesse.github.io/Angry_Birds/" target="_blank">
         <img src="https://github.com/Jorin-Liesse/Angry_Birds/assets/66786568/37f94966-8b03-49b6-987d-94805330e854" alt="Settings" width="400"/>
