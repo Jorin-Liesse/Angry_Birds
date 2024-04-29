@@ -84,7 +84,7 @@ Before installing and running the application, please ensure that you have the f
     npm run build-linux  # for Linux
     ```
 4. Once the build process is complete, navigate to the `build` folder.
-5. In the `build` folder, you will find the application folder containing `Flappy-Bird.exe` (for Windows).
+5. In the `build` folder, you will find the application folder containing `Angry-Birds.exe` (for Windows).
    
 ## Troubleshooting
 If you encounter any issues during installation or running the application, please refer to the following steps:
